@@ -22,7 +22,6 @@ public class Vet {
      * Define the attributes for the Vet entity, the Id and the relations
      */
     @Id
-    @GeneratedValue
     @Column(name = "username")
     private String username;
 

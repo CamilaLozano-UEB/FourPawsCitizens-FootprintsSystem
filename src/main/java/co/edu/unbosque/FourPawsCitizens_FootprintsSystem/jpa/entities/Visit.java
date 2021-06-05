@@ -34,7 +34,8 @@ public class Visit {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "vet_id")
+    @ManyToOne
+    @JoinColumn(name = "username")
     private Vet vet;
 
     @ManyToOne
