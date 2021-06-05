@@ -1,12 +1,12 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.vet;
 
-public class Vet {
+public class VetPOJO {
     private String username;
     private String name;
     private String address;
     private String neighborhood;
 
-    public Vet() {
+    public VetPOJO() {
 
     }
 
@@ -16,7 +16,7 @@ public class Vet {
      * @param address,      the vet's address
      * @param neighborhood, the vet's neighborhood
      */
-    public Vet(String username, String name, String address, String neighborhood) {
+    public VetPOJO(String username, String name, String address, String neighborhood) {
         this.username = username;
         this.name = name;
         this.address = address;

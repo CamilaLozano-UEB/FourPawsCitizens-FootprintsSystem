@@ -1,6 +1,6 @@
-package resources.pojos.official;
+package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.official;
 
-public class Official {
+public class OfficialPOJO {
 
     private String Username;
     private String name;
@@ -9,7 +9,7 @@ public class Official {
      * @param username the username
      * @param name     the name of the official
      */
-    public Official(String username, String name) {
+    public OfficialPOJO(String username, String name) {
         Username = username;
         this.name = name;
     }

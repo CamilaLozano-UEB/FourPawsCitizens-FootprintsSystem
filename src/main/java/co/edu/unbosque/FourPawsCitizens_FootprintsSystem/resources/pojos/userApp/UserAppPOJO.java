@@ -1,12 +1,12 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.userApp;
 
-public class UserApp {
+public class UserAppPOJO {
     private String username;
     private String password;
     private String email;
     private String role;
 
-    public UserApp() {
+    public UserAppPOJO() {
     }
 
     /**
@@ -15,7 +15,7 @@ public class UserApp {
      * @param email,    the userApp's email
      * @param role,     the userApp's role
      */
-    public UserApp(String username, String password, String email, String role) {
+    public UserAppPOJO(String username, String password, String email, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
