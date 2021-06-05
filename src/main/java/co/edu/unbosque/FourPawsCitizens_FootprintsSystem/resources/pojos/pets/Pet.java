@@ -1,5 +1,8 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets;
 
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.Case;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.Visit;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,9 @@ public class Pet {
     private String sex;
     private String picture;
     private String owner_username;
+    private List<Visit> visits = new ArrayList<Visit>();
+    private List<Case> cases = new ArrayList<Case>();
+
 
     public Pet() {
     }
@@ -167,7 +173,23 @@ public class Pet {
     public void setOwner_username(String owner_username) {
         this.owner_username = owner_username;
     }
+    /**
+     * add the visit to the list of visits
+     *
+     * @param vist a new visit of the pet
+     */
+    public void addVisits(Visit vist) {
+        visits.add(vist);
+    }
 
+    /**
+     * add the case to the list of cases
+     *
+     * @param onecase a new case of the pet
+     */
+    public void addCase(Case onecase) {
+        cases.add(onecase);
+    }
 
 
 }
