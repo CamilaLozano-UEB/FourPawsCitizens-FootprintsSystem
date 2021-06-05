@@ -1,7 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets;
 
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.Case;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.Visit;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.CasePOJO;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ public class Pet {
     private String sex;
     private String picture;
     private String owner_username;
-    private List<Visit> visits = new ArrayList<Visit>();
-    private List<Case> cases = new ArrayList<Case>();
+    private List<VisitPOJO> visitPOJOS = new ArrayList<VisitPOJO>();
+    private List<CasePOJO> casePOJOS = new ArrayList<CasePOJO>();
 
 
     public Pet() {
@@ -178,8 +178,8 @@ public class Pet {
      *
      * @param vist a new visit of the pet
      */
-    public void addVisits(Visit vist) {
-        visits.add(vist);
+    public void addVisits(VisitPOJO vist) {
+        visitPOJOS.add(vist);
     }
 
     /**
@@ -187,8 +187,8 @@ public class Pet {
      *
      * @param onecase a new case of the pet
      */
-    public void addCase(Case onecase) {
-        cases.add(onecase);
+    public void addCase(CasePOJO onecase) {
+        casePOJOS.add(onecase);
     }
 
 
