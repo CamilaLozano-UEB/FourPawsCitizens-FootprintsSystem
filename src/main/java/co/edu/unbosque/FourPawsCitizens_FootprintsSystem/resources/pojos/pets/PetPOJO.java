@@ -6,7 +6,7 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.V
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pet {
+public class PetPOJO {
 
     private Integer pet_id;
     private Long microchip;
@@ -21,7 +21,7 @@ public class Pet {
     private List<CasePOJO> casePOJOS = new ArrayList<CasePOJO>();
 
 
-    public Pet() {
+    public PetPOJO() {
     }
 
     /**
@@ -35,7 +35,7 @@ public class Pet {
      * @param picture   the picture of the pet
      * @param owner_id  the owner id of the pet
      */
-    public Pet(Integer pet_Id, Long microchip, String name, String species, String race, String size, String sex, String picture, String owner_id) {
+    public PetPOJO(Integer pet_Id, Long microchip, String name, String species, String race, String size, String sex, String picture, String owner_id) {
         this.pet_id = pet_Id;
         this.microchip = microchip;
         this.name = name;

@@ -1,21 +1,21 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner;
 
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.Pet;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Owner {
+public class OwnerPOJO {
 
     private String username;
     private Integer person_id;
     private String name;
     private String address;
     private String neighborhood;
-    private List<Pet> pets =new ArrayList<Pet>();
+    private List<PetPOJO> pets =new ArrayList<PetPOJO>();
 
 
-    public Owner() {
+    public OwnerPOJO() {
 
     }
 
@@ -26,7 +26,7 @@ public class Owner {
      * @param address,      the owner's address
      * @param neighborhood, the owner's neighborhood
      */
-    public Owner(String username, Integer person_id, String name, String address, String neighborhood) {
+    public OwnerPOJO(String username, Integer person_id, String name, String address, String neighborhood) {
         this.username = username;
         this.person_id = person_id;
         this.name = name;
@@ -38,7 +38,7 @@ public class Owner {
      *
      * @return List of pets
      */
-    public List<Pet> getPets() {
+    public List<PetPOJO> getPets() {
         return pets;
     }
 
@@ -46,7 +46,7 @@ public class Owner {
      *
      * @param pets List of pets
      */
-    public void setPets(List<Pet> pets) {
+    public void setPets(List<PetPOJO> pets) {
         this.pets = pets;
     }
 
@@ -124,7 +124,7 @@ public class Owner {
      * add a pet to the list of pets
      * @param pet, a new pet of the owner
      */
-    public void addPets(Pet pet) {
+    public void addPets(PetPOJO pet) {
         pets.add(pet);
     }
 

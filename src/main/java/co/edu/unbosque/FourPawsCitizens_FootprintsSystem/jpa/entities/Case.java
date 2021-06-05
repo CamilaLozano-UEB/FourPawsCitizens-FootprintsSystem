@@ -18,7 +18,7 @@ import java.util.Date;
 public class Case {
 
     /**
-     * Define the attributes for the Visit entity, the Id and the relations
+     * Define the attributes for the Case entity, the Id and the relations
      */
     @Id
     @GeneratedValue
@@ -34,7 +34,8 @@ public class Case {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "pet_id")
+    @ManyToOne
+    @JoinColumn(name = "pet_id")
     private Pet pet;
 
     /**
@@ -42,14 +43,12 @@ public class Case {
      * @param createdAt   the date of creation
      * @param type        the type of case
      * @param description the case description
-     * @param pet         the pet of the case
      */
-    public Case(Integer caseId, Date createdAt, String type, String description, Pet pet) {
+    public Case(Integer caseId, Date createdAt, String type, String description) {
         this.caseId = caseId;
         this.createdAt = createdAt;
         this.type = type;
         this.description = description;
-        this.pet = pet;
     }
 
     public Case() {

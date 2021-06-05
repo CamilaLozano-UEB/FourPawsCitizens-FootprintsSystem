@@ -37,7 +37,8 @@ public class Visit {
     @Column(name = "vet_id")
     private Vet vet;
 
-    @Column(name = "pet_id")
+    @ManyToOne
+    @JoinColumn(name = "pet_id")
     private Pet pet;
 
     /**
@@ -45,16 +46,12 @@ public class Visit {
      * @param createdAt   the date of creation
      * @param type        the visit type
      * @param description the visit description
-     * @param vet         the vet of the visit
-     * @param pet         the pet of the visit
      */
-    public Visit(Integer visitId, Date createdAt, String type, String description, Vet vet, Pet pet) {
+    public Visit(Integer visitId, Date createdAt, String type, String description) {
         this.visitId = visitId;
         this.createdAt = createdAt;
         this.type = type;
         this.description = description;
-        this.vet = vet;
-        this.pet = pet;
     }
 
     public Visit() {
