@@ -16,6 +16,16 @@ public interface OwnerRepository {
     String save(Owner owner);
 
     /**
+     * Modify the attributes address and neighborhood of an specific owner
+     *
+     * @param username the username of the owner
+     * @param address,      the owner's address
+     * @param neighborhood, the owner's neighborhood
+     *
+     * @return  a result message
+     */
+    String modify(String username, String address, String neighborhood);
+    /**
      * Finds all the owner of the db
      *
      * @return a list of owners
