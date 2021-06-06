@@ -35,8 +35,6 @@ public class Vet {
     private String neighborhood;
 
     @OneToMany(mappedBy = "vet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Pet> pets = new ArrayList<>();
-    @OneToMany(mappedBy = "vet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Visit> visits = new ArrayList<>();
 
     /**
@@ -56,6 +54,10 @@ public class Vet {
      * Void constructor
      */
     public Vet() {
+    }
+
+    public void addVisit(Visit visit) {
+        this.visits.add(visit);
     }
 
     /**
@@ -112,20 +114,6 @@ public class Vet {
      */
     public void setNeighborhood(String neighborhood) {
         this.neighborhood = neighborhood;
-    }
-
-    /**
-     * @return the list of vets
-     */
-    public List<Pet> getPets() {
-        return pets;
-    }
-
-    /**
-     * @param pets the new list of pets
-     */
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
     }
 
     /**

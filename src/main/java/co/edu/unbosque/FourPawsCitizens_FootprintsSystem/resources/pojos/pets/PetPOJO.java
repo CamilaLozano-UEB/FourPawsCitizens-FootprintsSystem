@@ -49,6 +49,15 @@ public class PetPOJO {
     }
 
     /**
+     * @param pet_id    the pet id
+     * @param microchip the pet microchip
+     */
+    public PetPOJO(Integer pet_id, Long microchip) {
+        this.pet_id = pet_id;
+        this.microchip = microchip;
+    }
+
+    /**
      * @return the pet id
      */
     public Integer getPet_id() {
@@ -173,6 +182,7 @@ public class PetPOJO {
     public void setOwner_username(String owner_username) {
         this.owner_username = owner_username;
     }
+
     /**
      * add the visit to the list of visits
      *

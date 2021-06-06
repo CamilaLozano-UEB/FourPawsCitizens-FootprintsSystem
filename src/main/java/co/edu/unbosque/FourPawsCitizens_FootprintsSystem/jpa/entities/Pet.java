@@ -2,7 +2,10 @@ package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 /**
  * Annotations to configure the entity, give a name and define the named queries
  */
@@ -51,13 +54,12 @@ public class Pet {
     private Owner owner;
 
     @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Visit> visits = new ArrayList<>();
+    private Set<Visit> visits = new HashSet<>();
 
     @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Case> cases= new ArrayList<>();
+    private Set<Case> cases = new HashSet<>();
 
     /**
-     *
      * @param pet_id    the pet id
      * @param microchip the microchip of the pet
      * @param name      the name of the pet
@@ -79,6 +81,10 @@ public class Pet {
     }
 
     public Pet() {
+    }
+
+    public void addVisit(Visit visit) {
+        this.visits.add(visit);
     }
 
     /**
@@ -194,7 +200,6 @@ public class Pet {
     }
 
     /**
-     *
      * @return the owner of the pet
      */
     public Owner getOwner() {
@@ -202,23 +207,20 @@ public class Pet {
     }
 
     /**
-     *
      * @return the pet's visiting list
      */
-    public List<Visit> getVisits() {
+    public Set<Visit> getVisits() {
         return visits;
     }
 
     /**
-     *
      * @param visits the pet's visiting list
      */
-    public void setVisits(List<Visit> visits) {
+    public void setVisits(Set<Visit> visits) {
         this.visits = visits;
     }
 
     /**
-     *
      * @param owner the owner of the pet
      */
     public void setOwner(Owner owner) {
@@ -226,18 +228,16 @@ public class Pet {
     }
 
     /**
-     *
      * @return the pet's case list
      */
-    public List<Case> getCases() {
+    public Set<Case> getCases() {
         return cases;
     }
 
     /**
-     *
      * @param cases the pet's visiting list
      */
-    public void setCases(List<Case> cases) {
+    public void setCases(Set<Case> cases) {
         this.cases = cases;
     }
 }

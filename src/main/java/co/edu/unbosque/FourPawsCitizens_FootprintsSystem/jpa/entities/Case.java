@@ -7,7 +7,7 @@ import java.util.Date;
  * Annotations to configure the entity, give a name and define the named queries
  */
 @Entity
-@Table(name = "Case")
+@Table(name = "Cases")
 @NamedQueries({
         @NamedQuery(name = "Case.remove",
                 query = "DELETE FROM Case c WHERE c.id = :id")

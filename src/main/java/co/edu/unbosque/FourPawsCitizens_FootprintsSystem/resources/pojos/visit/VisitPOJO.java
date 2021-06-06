@@ -6,7 +6,7 @@ public class VisitPOJO {
     private String type;
     private String description;
     private Long microchip;
-    private Integer vet_id;
+    private String vetUsername;
     private Integer pet_id;
 
     /**
@@ -15,16 +15,16 @@ public class VisitPOJO {
      * @param type        the type of visit
      * @param description the description of the visit
      * @param microchip   the pet microchip
-     * @param vet_id      the veterinary id
+     * @param vetUsername the veterinary id
      * @param pet_id      the pet id
      */
-    public VisitPOJO(Integer visit_id, String created_at, String type, String description, Long microchip, Integer vet_id, Integer pet_id) {
+    public VisitPOJO(Integer visit_id, String created_at, String type, String description, Long microchip, String vetUsername, Integer pet_id) {
         this.visit_id = visit_id;
         this.created_at = created_at;
         this.type = type;
         this.description = description;
         this.microchip = microchip;
-        this.vet_id = vet_id;
+        this.vetUsername = vetUsername;
         this.pet_id = pet_id;
     }
 
@@ -105,15 +105,15 @@ public class VisitPOJO {
     /**
      * @return the vet id
      */
-    public Integer getVet_id() {
-        return vet_id;
+    public String getVetUsername() {
+        return vetUsername;
     }
 
     /**
-     * @param vet_id the new vet id
+     * @param vetUsername the new vet id
      */
-    public void setVet_id(Integer vet_id) {
-        this.vet_id = vet_id;
+    public void setVetUsername(String vetUsername) {
+        this.vetUsername = vetUsername;
     }
 
     /**

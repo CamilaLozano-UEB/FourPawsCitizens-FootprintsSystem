@@ -43,16 +43,30 @@ public class Visit {
     private Pet pet;
 
     /**
-     * @param visitId     the visit id
      * @param createdAt   the date of creation
      * @param type        the visit type
      * @param description the visit description
      */
-    public Visit(Integer visitId, Date createdAt, String type, String description) {
+    public Visit(Date createdAt, String type, String description) {
         this.visitId = visitId;
         this.createdAt = createdAt;
         this.type = type;
         this.description = description;
+    }
+
+    /**
+     * @param createdAt   the date of creation
+     * @param type        the visit type
+     * @param description the visit description
+     * @param vet         the visit vet
+     * @param pet         the visit pet
+     */
+    public Visit(Date createdAt, String type, String description, Vet vet, Pet pet) {
+        this.createdAt = createdAt;
+        this.type = type;
+        this.description = description;
+        this.vet = vet;
+        this.pet = pet;
     }
 
     public Visit() {

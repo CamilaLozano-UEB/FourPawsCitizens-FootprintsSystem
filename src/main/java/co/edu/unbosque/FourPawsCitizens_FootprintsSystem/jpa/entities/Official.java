@@ -9,10 +9,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "Official")
-@NamedQueries({
-        @NamedQuery(name = "Official.findAll",
-                query = "SELECT of FROM Official of")
-})
+
 /**
  * Official entity
  */
@@ -28,13 +25,6 @@ public class Official {
 
     @Column(name = "name")
     private String name;
-
-    @OneToMany(mappedBy = "official", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Pet> pets = new ArrayList<>();
-    @OneToMany(mappedBy = "official", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Owner> owners = new ArrayList<>();
-    @OneToMany(mappedBy = "official", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Case> cases = new ArrayList<>();
 
     /**
      * Void constructor
@@ -79,45 +69,4 @@ public class Official {
         this.name = name;
     }
 
-    /**
-     * @return the lists of pets
-     */
-    public List<Pet> getPets() {
-        return pets;
-    }
-
-    /**
-     * @param pets the new list of pets
-     */
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
-    }
-
-    /**
-     * @return the list of owners
-     */
-    public List<Owner> getOwners() {
-        return owners;
-    }
-
-    /**
-     * @param owners the new list of owners
-     */
-    public void setOwners(List<Owner> owners) {
-        this.owners = owners;
-    }
-
-    /**
-     * @return the list of cases
-     */
-    public List<Case> getCases() {
-        return cases;
-    }
-
-    /**
-     * @param cases the new list of cases
-     */
-    public void setCases(List<Case> cases) {
-        this.cases = cases;
-    }
 }
