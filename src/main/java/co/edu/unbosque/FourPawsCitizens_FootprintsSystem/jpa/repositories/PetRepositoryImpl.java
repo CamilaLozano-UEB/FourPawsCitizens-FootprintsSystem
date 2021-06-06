@@ -48,7 +48,7 @@ public class PetRepositoryImpl implements PetRepository {
     /**
      * Modify the attributes of an specific pet
      *
-     * @param pet the pet with the new data
+     * @param petPOJO the pet with the new data
      * @return a result message
      */
     @Override
