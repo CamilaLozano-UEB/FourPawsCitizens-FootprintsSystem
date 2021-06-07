@@ -22,4 +22,12 @@ public class OwnersResource {
                 .entity(message)
                 .build();
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{username}")
+    public Response listPets() {
+
+        return null;
+    }
 }
