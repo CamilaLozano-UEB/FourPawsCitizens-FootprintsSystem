@@ -2,8 +2,10 @@ package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Owner;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.OwnerPOJO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OwnerRepository {
 
@@ -18,19 +20,18 @@ public interface OwnerRepository {
     /**
      * Modify the attributes address and neighborhood of an specific owner
      *
-     * @param username the username of the owner
-     * @param address,      the owner's address
-     * @param neighborhood, the owner's neighborhood
-     *
-     * @return  a result message
+     * @param ownerPojo the pet with the new DB
+     * @return a result message
      */
-    String modify(String username, String address, String neighborhood);
+    String modify(OwnerPOJO ownerPojo);
+
     /**
      * Finds all the owner of the db
      *
      * @return a list of owners
      */
     List<Owner> findAll();
+
     /**
      * Finds all the owner by neighborhood of the db
      *
@@ -38,4 +39,11 @@ public interface OwnerRepository {
      */
     List<Owner> findByNeighborhood(String neighborhood);
 
+    /**
+     * Finds an owner by id
+     *
+     * @param username owner's id
+     * @return
+     */
+    Optional<Owner> findById(String username);
 }

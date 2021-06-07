@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.official.OfficialPOJO;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +19,10 @@ public interface OfficialRepository {
     /**
      * Modify the attributes of an specific official
      *
-     * @param username the username of the official to be modified
-     * @param name     the new name
+     * @param officialPojo the new data of owner in the db
      * @return a message of the result
      */
-    String modify(String username, String name);
+    String modify(OfficialPOJO officialPojo);
 
     /**
      * Delete an official from the DB
