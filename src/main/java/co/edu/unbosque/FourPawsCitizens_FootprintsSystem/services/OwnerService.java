@@ -14,13 +14,12 @@ public class OwnerService {
 
     private OwnerRepository ownerRepository;
 
-    public String modifyOwner(String username, String address, String neighborhood) {
+    public String modifyOwner(OwnerPOJO ownerPOJO) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         ownerRepository = new OwnerRepositoryImpl(entityManager);
 
-        String message = ownerRepository.modify(username,address, neighborhood);
-
+        String message = ownerRepository.modify(ownerPOJO);
         entityManager.close();
         entityManagerFactory.close();
         return message;
