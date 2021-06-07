@@ -9,29 +9,6 @@ import java.util.Optional;
 public interface OfficialRepository {
 
     /**
-     * saves a new official to the db
-     *
-     * @param official the case to persist
-     * @return a result message
-     */
-    String save(Official official);
-
-    /**
-     * Modify the attributes of an specific official
-     *
-     * @param officialPojo the new data of owner in the db
-     * @return a message of the result
-     */
-    String modify(OfficialPOJO officialPojo);
-
-    /**
-     * Delete an official from the DB
-     *
-     * @param official the official to delete
-     */
-    void delete(Official official);
-
-    /**
      * Find an official by id
      *
      * @param username official's id

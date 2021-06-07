@@ -22,7 +22,7 @@ public class Owner {
      * Define the attributes for the Owner entity, the Id and the relations
      */
     @Id
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(nullable = false, unique = true)
@@ -56,6 +56,16 @@ public class Owner {
     }
 
     public Owner() {
+    }
+
+    /**
+     * add a pet to the list of pets
+     *
+     * @param pet, a new pet of the owner
+     */
+    public void addPet(Pet pet) {
+        pets.add(pet);
+        pet.setOwner(this);
     }
 
     /**
@@ -142,13 +152,4 @@ public class Owner {
         this.pets = pets;
     }
 
-    /**
-     * add a pet to the list of pets
-     *
-     * @param pet, a new pet of the owner
-     */
-    public void addPet(Pet pet) {
-        pets.add(pet);
-        pet.setOwner(this);
-    }
 }

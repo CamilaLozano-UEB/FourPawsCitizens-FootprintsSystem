@@ -30,6 +30,7 @@ public class VisitResource {
 
 
             visitPOJO.setVetUsername(vetUsername);
+
             new VisitService().saveVisit(visitPOJO);
             new PetService().modifyPet(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
 

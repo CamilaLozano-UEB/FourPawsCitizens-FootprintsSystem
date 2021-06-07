@@ -16,52 +16,6 @@ public class OfficialRepositoryImpl implements OfficialRepository {
     }
 
     /**
-     * saves a new official to the db
-     *
-     * @param official the case to persist
-     * @return a result message
-     */
-    @Override
-    public String save(Official official) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(official);
-            entityManager.getTransaction().commit();
-            return "se ha registrado correctamente el oficial";
-        } catch (Exception e) {
-            return "Ha ocurrido un error al registrar el oficial!";
-        }
-    }
-
-    /**
-     * Modify the attributes of an specific official
-     *
-     * @param officialPojo the new data of owner in the db
-     * @return a message of the result
-     */
-    @Override
-    public String modify(OfficialPOJO officialPojo) {
-        entityManager.getTransaction().begin();
-        Optional<Official> official = this.findById(officialPojo.getUsername());
-        if (!official.isPresent()) return "No existe el oficial con el username ingresado!";
-        official.get().setName(officialPojo.getName());
-        entityManager.getTransaction().commit();
-        return "Se ha modificado exitosamente!";
-    }
-
-    /**
-     * Delete an official from the DB
-     *
-     * @param official the official to delete
-     */
-    @Override
-    public void delete(Official official) {
-        entityManager.getTransaction().begin();
-        entityManager.remove(official);
-        entityManager.getTransaction().commit();
-    }
-
-    /**
      * Find an official by id
      *
      * @param username official's id

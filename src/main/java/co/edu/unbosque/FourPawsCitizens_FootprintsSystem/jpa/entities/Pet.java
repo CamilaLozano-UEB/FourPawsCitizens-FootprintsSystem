@@ -60,7 +60,6 @@ public class Pet {
     private Set<Case> cases = new HashSet<>();
 
     /**
-     * @param pet_id    the pet id
      * @param microchip the microchip of the pet
      * @param name      the name of the pet
      * @param species   the species of the pet
@@ -69,8 +68,7 @@ public class Pet {
      * @param sex       the sex of the pet
      * @param picture   the picture of the pet
      */
-    public Pet(Integer pet_id, Long microchip, String name, String species, String race, String size, String sex, String picture) {
-        this.pet_id = pet_id;
+    public Pet(Long microchip, String name, String species, String race, String size, String sex, String picture) {
         this.microchip = microchip;
         this.name = name;
         this.species = species;
