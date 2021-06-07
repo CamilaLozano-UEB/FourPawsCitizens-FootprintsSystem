@@ -3,6 +3,7 @@ package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Annotations to configure the entity, give a name and define the named queries
  */
@@ -21,7 +22,6 @@ public class Owner {
      * Define the attributes for the Owner entity, the Id and the relations
      */
     @Id
-    @GeneratedValue
     @Column(name = "username")
     private String username;
 
@@ -39,6 +39,7 @@ public class Owner {
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Pet> pets = new ArrayList<>();
+
     /**
      * @param username,     the owner's username
      * @param person_id,    the owner's person id
@@ -128,14 +129,13 @@ public class Owner {
     }
 
     /**
-     *
      * @return the owner's pet list
      */
     public List<Pet> getPets() {
         return pets;
     }
+
     /**
-     *
      * @param pets the owner's pet list
      */
     public void setPets(List<Pet> pets) {
@@ -144,6 +144,7 @@ public class Owner {
 
     /**
      * add a pet to the list of pets
+     *
      * @param pet, a new pet of the owner
      */
     public void addPet(Pet pet) {
