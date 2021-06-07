@@ -9,13 +9,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/vet/{vetId}/visits")
+@Path("/vet/{username}/visits")
 public class VisitResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@PathParam("vetId") String vetUsername, VisitPOJO visitPOJO) {
+    public Response create(@PathParam("username") String vetUsername, VisitPOJO visitPOJO) {
 
         if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() == null) {
             return Response.status(Response.Status.FORBIDDEN)
