@@ -18,17 +18,28 @@ public class OwnerService {
 
     private OwnerRepository ownerRepository;
 
+    /**
+     * Method that modify the owner
+     *
+     * @param ownerPOJO owner's pojo
+     * @return string message
+     */
     public String modifyOwner(OwnerPOJO ownerPOJO) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         ownerRepository = new OwnerRepositoryImpl(entityManager);
-
+        //Save the data that arrive for ownerPojo
         String message = ownerRepository.modify(ownerPOJO);
         entityManager.close();
         entityManagerFactory.close();
         return message;
     }
 
+    /**
+     * Method that save the owner in OwnerPOJO
+     * @param ownerPOJO owner's pojo
+     * @return
+     */
     public String saveOwner(OwnerPOJO ownerPOJO) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -42,13 +53,20 @@ public class OwnerService {
         return message;
     }
 
+    /**
+     * Method that list all the pets of an owner, compare the username an list the pets with the same owner
+     *
+     * @param username owner's username
+     * @return List of pet's Pojo
+     */
     public List<PetPOJO> listPets(String username) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         ownerRepository = new OwnerRepositoryImpl(entityManager);
-
+        //Create a owner optional object
         Optional<Owner> owner = ownerRepository.findById(username);
         List<PetPOJO> petPOJOList = new ArrayList<>();
+        //If the owner exist, list the pets of this owner
         owner.ifPresent(o ->
                 o.getPets().forEach(petEntity ->
                         petPOJOList.add(new PetPOJO(

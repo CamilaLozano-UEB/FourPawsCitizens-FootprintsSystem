@@ -20,16 +20,19 @@ public class OfficialService {
     OfficialRepository officialRepository;
     private PetRepository petRepository;
 
-
+    /**
+     * List that calls the official
+     * @return a official's pojo
+     */
     public List<OfficialPOJO> listOfficial() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         officialRepository = new OfficialRepositoryImpl(entityManager);
-        // List of customer (entity)
+        // List of official (entity)
         List<Official> officials = officialRepository.findAll();
         entityManager.close();
         entityManagerFactory.close();
-        // Convert the customers list to an CustomerPOJO list
+        // Convert the customers list to an OfficialPOJO list
         List<OfficialPOJO> officialPOJOS = new ArrayList<>();
         for (Official official : officials) {
             officialPOJOS.add(new OfficialPOJO(
