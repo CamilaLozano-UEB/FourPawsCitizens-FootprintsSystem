@@ -1,4 +1,4 @@
-package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases;
+package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.petCases;
 
 public class CasePOJO {
     private Integer case_id;

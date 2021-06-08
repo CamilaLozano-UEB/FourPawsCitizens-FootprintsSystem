@@ -7,18 +7,18 @@ import java.util.Date;
  * Annotations to configure the entity, give a name and define the named queries
  */
 @Entity
-@Table(name = "Cases")
+@Table(name = "PetCase")
 @NamedQueries({
-        @NamedQuery(name = "Case.remove",
-                query = "DELETE FROM Case c WHERE c.id = :id")
+        @NamedQuery(name = "PetCase.remove",
+                query = "DELETE FROM PetCase c WHERE c.id = :id")
 })
 /**
- * Case entity
+ * PetCase entity
  */
-public class Case {
+public class PetCase {
 
     /**
-     * Define the attributes for the Case entity, the Id and the relations
+     * Define the attributes for the PetCase entity, the Id and the relations
      */
     @Id
     @GeneratedValue
@@ -43,15 +43,17 @@ public class Case {
      * @param createdAt   the date of creation
      * @param type        the type of case
      * @param description the case description
+     * @param pet         the pet of the case
      */
-    public Case(Integer caseId, Date createdAt, String type, String description) {
+    public PetCase(Integer caseId, Date createdAt, String type, String description, Pet pet) {
         this.caseId = caseId;
         this.createdAt = createdAt;
         this.type = type;
         this.description = description;
+        this.pet = pet;
     }
 
-    public Case() {
+    public PetCase() {
     }
 
     /**

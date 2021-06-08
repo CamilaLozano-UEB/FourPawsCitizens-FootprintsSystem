@@ -1,9 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -57,7 +55,7 @@ public class Pet {
     private Set<Visit> visits = new HashSet<>();
 
     @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Case> cases = new HashSet<>();
+    private Set<PetCase> petCases = new HashSet<>();
 
     /**
      * @param microchip the microchip of the pet
@@ -228,14 +226,14 @@ public class Pet {
     /**
      * @return the pet's case list
      */
-    public Set<Case> getCases() {
-        return cases;
+    public Set<PetCase> getCases() {
+        return petCases;
     }
 
     /**
-     * @param cases the pet's visiting list
+     * @param petCases the pet's visiting list
      */
-    public void setCases(Set<Case> cases) {
-        this.cases = cases;
+    public void setCases(Set<PetCase> petCases) {
+        this.petCases = petCases;
     }
 }

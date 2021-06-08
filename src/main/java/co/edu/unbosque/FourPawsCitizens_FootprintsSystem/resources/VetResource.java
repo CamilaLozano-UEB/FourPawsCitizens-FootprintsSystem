@@ -28,7 +28,7 @@ public class VetResource {
         String message = new VetService().modifyVet(vetPOJO);
 
         return Response.
-                status(Response.Status.CREATED)
+                status(Response.Status.OK)
                 .entity(message)
                 .build();
     }

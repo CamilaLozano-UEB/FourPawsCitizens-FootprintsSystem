@@ -1,5 +1,6 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.OwnerPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.OwnerService;
 
 import javax.ws.rs.*;
@@ -16,5 +17,14 @@ public class OwnerResource {
                 .ok()
                 .entity(new OwnerService().listPets(username))
                 .build();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response modifyOwner(@PathParam("username") String username, OwnerPOJO ownerPojo) {
+        ownerPojo.setUsername(username);
+        String message = new OwnerService().modifyOwner(ownerPojo);
+        return Response.status(Response.Status.OK).entity(message).build();
     }
 }

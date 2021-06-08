@@ -1,6 +1,6 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Case;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.PetCase;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -16,14 +16,14 @@ public class CaseRepositoryImpl implements CaseRepository {
     /**
      * saves a new case to the db
      *
-     * @param pCase the case to persist
+     * @param pPetCase the case to persist
      * @return a result message
      */
     @Override
-    public String save(Case pCase) {
+    public String save(PetCase pPetCase) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(pCase);
+            entityManager.persist(pPetCase);
             entityManager.getTransaction().commit();
             return "se ha registrado correctamente";
         } catch (Exception e) {
@@ -32,12 +32,12 @@ public class CaseRepositoryImpl implements CaseRepository {
     }
 
     /**
-     * Finds all the cases of the db
+     * Finds all the petCases of the db
      *
-     * @return a list of cases
+     * @return a list of petCases
      */
     @Override
-    public List<Case> findAll() {
-        return entityManager.createQuery("from Case").getResultList();
+    public List<PetCase> findAll() {
+        return entityManager.createQuery("from PetCase").getResultList();
     }
 }

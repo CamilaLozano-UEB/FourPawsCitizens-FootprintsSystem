@@ -1,6 +1,6 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets;
 
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.CasePOJO;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.petCases.CasePOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 
 import java.util.ArrayList;
@@ -193,7 +193,7 @@ public class PetPOJO {
     }
 
     /**
-     * add the case to the list of cases
+     * add the case to the list of petCases
      *
      * @param onecase a new case of the pet
      */
