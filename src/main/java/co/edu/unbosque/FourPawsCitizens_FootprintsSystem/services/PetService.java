@@ -11,6 +11,7 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.Pe
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 import java.util.Optional;
 
 public class PetService {
@@ -27,6 +28,12 @@ public class PetService {
         Optional<Owner> owner = ownerRepository.findById(petPOJO.getOwner_username());
 
         if (!owner.isPresent()) return "El username del dueño ingresado no existe!";
+
+        List<Pet> petList = petRepository.findAll();
+
+        for (int i = 0; i < petList.size(); ++i) {
+            if(petList.get(i).getMicrochip()!=null&&petList.get(i).getMicrochip().equals(petPOJO.getMicrochip())) return "El microchip ingresado ya existe ";
+        }
         Pet pet = new Pet(
                 petPOJO.getMicrochip(),
                 petPOJO.getName(),
