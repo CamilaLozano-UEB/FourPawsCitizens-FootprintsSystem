@@ -1,25 +1,23 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepository;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepositoryImpl;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.VetRepositoryImpl;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.PetService;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.VisitService;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Optional;
 
 @Path("/vet/{username}/visits")
 public class VisitResource {
-
+    /**
+     * Method that creates a visit. If the visit is microchip implantation validates it and save it in the db
+     *
+     * @param vetUsername, vet's username
+     * @param visitPOJO    vet's pojo
+     * @return a response status
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -36,14 +34,14 @@ public class VisitResource {
 
         } else if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() != null) {
             String message;
-           if( new VisitService().verificateVisit(visitPOJO)) {
+            if (new VisitService().verificateVisit(visitPOJO)) {
 
                 visitPOJO.setVetUsername(vetUsername);
 
                 message = new VisitService().saveVisit(visitPOJO);
                 new PetService().modifyPet(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
-            }else{
-                message= "Los datos ingresados son erroneos";
+            } else {
+                message = "Los datos ingresados son erroneos";
             }
             return Response.status(Response.Status.CREATED).entity(message).build();
         } else {

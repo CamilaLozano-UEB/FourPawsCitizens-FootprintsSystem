@@ -1,13 +1,12 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services;
 
-
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.PetCase;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.CaseRepository;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.CaseRepositoryImpl;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepository;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepositoryImpl;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.petCases.CasePOJO;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.CasePOJO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

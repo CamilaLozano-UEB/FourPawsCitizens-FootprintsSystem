@@ -10,6 +10,11 @@ import javax.ws.rs.core.Response;
 @Path("/owners")
 public class OwnersResource {
 
+    /**
+     * Method that creates an owner and save it to the db
+     * @param ownerPOJO owner's pojo
+     * @return a response status
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

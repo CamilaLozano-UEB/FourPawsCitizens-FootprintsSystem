@@ -10,6 +10,13 @@ import javax.ws.rs.core.Response;
 @Path("/owner/{username}")
 
 public class OwnerResource {
+
+    /**
+     * Method that list the pets of the one owner
+     *
+     * @param username username of the owner
+     * @return a response status
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listPets(@PathParam("username") String username) {
@@ -19,6 +26,13 @@ public class OwnerResource {
                 .build();
     }
 
+    /**
+     * Method that modify the data of the owner and save it to the db
+     *
+     * @param username  owner's username
+     * @param ownerPojo owner's pojo
+     * @return a response status
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
