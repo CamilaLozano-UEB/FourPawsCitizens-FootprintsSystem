@@ -3,6 +3,9 @@ package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Visit;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class VisitRepositoryImpl implements VisitRepository {
@@ -39,5 +42,27 @@ public class VisitRepositoryImpl implements VisitRepository {
     @Override
     public List<Visit> findAll() {
         return entityManager.createQuery("from Visit").getResultList();
+    }
+    /**
+     *  Finds the list of visits in a range of dates for a pet in a descending way
+     *
+     * @param date1 first date range
+     * @param date2 second date range
+     * @param pet_id the pet id
+     * @return a list of visits
+     */
+    @Override
+    public List<Visit> findBetweenDates(Date date1, Date date2, Integer pet_id) {
+        Query visitq= entityManager.createQuery("SELECT v FROM Visit v WHERE  v.createdAt BETWEEN : date1   AND : date2 ORDER BY v.createdAt DESC");
+        visitq.setParameter("date1",date1);
+        visitq.setParameter("date2",date2);
+        List <Visit> visitList= visitq.getResultList();
+        List <Visit> visits= new ArrayList<>();
+        for(int i = 0; i<visitList.size(); i++){
+            if(visitList.get(i).getPet().getPet_id()==pet_id){
+                visits.add(visitList.get(i));
+            }
+        }
+        return visits;
     }
 }
