@@ -58,5 +58,22 @@ public class VisitService {
         entityManagerFactory.close();
         return "Se ha creado exitosamente la visita!";
     }
+    public boolean verificateVisit(VisitPOJO visitPOJO) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        petRepository = new PetRepositoryImpl(entityManager);
+        petRepository = new PetRepositoryImpl(entityManager);
+        vetRepository = new VetRepositoryImpl(entityManager);
 
+        Optional<Pet> pet = petRepository.findById(visitPOJO.getPet_id());
+
+        if (!pet.isPresent()) return false;
+
+        Optional<Vet> vet = vetRepository.findById(visitPOJO.getVetUsername());
+
+        if (!vet.isPresent()) return false;
+
+        if(pet.get().getMicrochip()!=null)  return false;
+        return true;
+    }
 }

@@ -26,7 +26,7 @@ public class Pet {
     @Column(name = "pet_id")
     private Integer pet_id;
 
-    @Column(nullable = false, unique = true)
+    @Column( name = "microchip")
     private Long microchip;
 
     @Column(name = "name")

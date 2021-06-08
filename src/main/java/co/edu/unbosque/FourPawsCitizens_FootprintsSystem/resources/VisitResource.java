@@ -1,13 +1,21 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepository;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepositoryImpl;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.VetRepositoryImpl;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.PetService;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.VisitService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 
 @Path("/vet/{username}/visits")
 public class VisitResource {
@@ -27,14 +35,17 @@ public class VisitResource {
                     .build();
 
         } else if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() != null) {
+            String message;
+           if( new VisitService().verificateVisit(visitPOJO)) {
 
+                visitPOJO.setVetUsername(vetUsername);
 
-            visitPOJO.setVetUsername(vetUsername);
-
-            new VisitService().saveVisit(visitPOJO);
-            new PetService().modifyPet(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
-
-            return Response.status(Response.Status.CREATED).build();
+                message = new VisitService().saveVisit(visitPOJO);
+                new PetService().modifyPet(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
+            }else{
+                message= "Los datos ingresados son erroneos";
+            }
+            return Response.status(Response.Status.CREATED).entity(message).build();
         } else {
             visitPOJO.setVetUsername(vetUsername);
 
