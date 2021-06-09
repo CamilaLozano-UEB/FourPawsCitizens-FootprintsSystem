@@ -27,9 +27,8 @@ public interface VisitRepository {
      *
      * @param date1 first date range
      * @param date2 second date range
-     * @param pet_id the pet id
      * @return a list of visits
      */
-    List<Visit> findBetweenDates(Date date1, Date date2, Integer pet_id);
+    List<Visit> findBetweenDatesByName(Date date1, Date date2);
 
 }

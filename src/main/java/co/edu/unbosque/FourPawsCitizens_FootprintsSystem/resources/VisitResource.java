@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.NameDateVisit;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.PetService;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.VisitService;
@@ -8,6 +9,10 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.VisitService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Path("/vet/{username}/visits")
 public class VisitResource {
@@ -22,7 +27,7 @@ public class VisitResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("username") String vetUsername, VisitPOJO visitPOJO) {
-
+        String message;
         if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() == null) {
             return Response.status(Response.Status.FORBIDDEN)
                     .entity("La opción de implantación de microchip requiere que este sea especificado!!!")
@@ -33,7 +38,6 @@ public class VisitResource {
                     .build();
 
         } else if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() != null) {
-            String message;
             if (new VisitService().verificateVisit(visitPOJO)) {
 
                 visitPOJO.setVetUsername(vetUsername);
@@ -46,10 +50,33 @@ public class VisitResource {
             return Response.status(Response.Status.CREATED).entity(message).build();
         } else {
             visitPOJO.setVetUsername(vetUsername);
-
+            message = new VisitService().saveVisit(visitPOJO);
             return Response.status(Response.Status.CREATED)
-                    .entity(visitPOJO)
+                    .entity(message)
                     .build();
         }
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listPetsByDatesAndName(@QueryParam("initialDate") String initialDate,
+                                           @QueryParam("finalDate") String finalDate,
+                                           @QueryParam("petName") String petName) {
+        Date initDate, fDate;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            initDate = df.parse(initialDate);
+            fDate = df.parse(finalDate);
+        } catch (ParseException e) {
+            return Response.status(Response.Status.OK).entity("El formato de fecha es incorrecto!").build();
+        }
+        List<VisitPOJO> visitPOJOS = new VisitService().
+                findVisitsBetweenDatesByName(initDate, fDate, petName);
+
+        return Response.
+                ok().
+                entity(visitPOJOS)
+                .build();
     }
 }

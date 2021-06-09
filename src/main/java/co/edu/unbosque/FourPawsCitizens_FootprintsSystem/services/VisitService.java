@@ -12,9 +12,7 @@ import javax.persistence.Persistence;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 public class VisitService {
     private VisitRepository visitRepository;
@@ -42,7 +40,7 @@ public class VisitService {
         if (!vet.isPresent()) return "El user name de la veterinaria ingresado no existe!";
 
         //Validating the format of the date, passing date of string to date
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         Date createdAt;
         try {
             createdAt = format.parse(visitPOJO.getCreated_at());
@@ -51,17 +49,19 @@ public class VisitService {
         }
 
         //Creating the visit and save it in the repository
-        Visit visit = new Visit(createdAt, visitPOJO.getType(), visitPOJO.getDescription());
+        Visit visit = new Visit(createdAt, visitPOJO.getType(), visitPOJO.getDescription(), vet.get(), pet.get());
 
         pet.ifPresent(p -> {
             p.addVisit(visit);
+            petRepository.save(p);
+
         });
 
         vet.ifPresent(v -> {
             v.addVisit(visit);
+            vetRepository.save(v);
         });
 
-        visitRepository.save(visit);
         entityManager.close();
         entityManagerFactory.close();
         return "Se ha creado exitosamente la visita!";
@@ -94,5 +94,26 @@ public class VisitService {
 
         if (pet.get().getMicrochip() != null) return false;
         return true;
+    }
+
+    public List<VisitPOJO> findVisitsBetweenDatesByName(Date date1, Date date2, String petName) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        visitRepository = new VisitRepositoryImpl(entityManager);
+        List<Visit> visits = visitRepository.findBetweenDatesByName(date1, date2);
+        List<VisitPOJO> visitPOJOS = new ArrayList<>();
+
+        visits.forEach(v -> {
+            if (v.getPet().getName().equalsIgnoreCase(petName))
+                visitPOJOS.add(new VisitPOJO(v.getVisitId(),
+                        new SimpleDateFormat("dd/MM/yyyy").format(v.getCreatedAt()),
+                        v.getType(),
+                        v.getDescription(),
+                        null,
+                        v.getVet().getUsername(),
+                        v.getPet().getPet_id()));
+        });
+
+        return visitPOJOS;
     }
 }

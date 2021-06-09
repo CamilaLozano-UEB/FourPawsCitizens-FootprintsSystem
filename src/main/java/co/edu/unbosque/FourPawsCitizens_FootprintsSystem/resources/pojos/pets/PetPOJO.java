@@ -1,6 +1,6 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets;
 
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.petCases.CasePOJO;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.CasePOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 
 import java.util.ArrayList;
