@@ -22,7 +22,6 @@ public class CaseResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("username") String caseUsername, @PathParam("pet_id") Integer pet_id, CasePOJO casePojo) {
         casePojo.setPet_id(pet_id);
-        System.out.println(casePojo.getPet_id());
         String message = new CaseService().saveCase(casePojo);
         return Response.status(Response.Status.CREATED).entity(message).build();
     }

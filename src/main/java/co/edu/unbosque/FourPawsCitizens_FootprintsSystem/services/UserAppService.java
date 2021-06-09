@@ -15,6 +15,13 @@ public class UserAppService {
 
     UserAppRepository userAppRepository;
 
+    /**
+     * validate the user exist in the DB
+     *
+     * @param username the user app's username
+     * @param password the user app's password
+     * @return the Optional role
+     */
     public Optional<String> validateUser( String username, String password ) {
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
@@ -35,5 +42,6 @@ public class UserAppService {
         return Optional.empty();
 
     }
+
 
 }

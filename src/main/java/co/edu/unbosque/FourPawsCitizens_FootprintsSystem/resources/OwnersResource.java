@@ -1,5 +1,6 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.filters.Logged;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.OwnerPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.OwnerService;
 
@@ -28,11 +29,21 @@ public class OwnersResource {
                 .build();
     }
 
+    @Logged
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("{username}")
-    public Response listPets() {
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response hello(@HeaderParam("role") String role) {
 
-        return null;
+        // If role doesn't match
+        if (!"owners".equals(role))
+           // Response.temporaryRedirect(Regresar Al inicio)
+            return Response.status(Response.Status.FORBIDDEN)
+                    .entity("Role " + role + " cannot access to this method")
+                    .build();
+        //Response.temporaryRedirect(URI) la pagina de owner acceptado
+        return Response.ok()
+                .entity("Hello, World, " + role + "!")
+                .build();
+
     }
 }
