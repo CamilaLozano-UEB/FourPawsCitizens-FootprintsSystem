@@ -37,7 +37,7 @@ public interface UserAppRepository {
      * @param username user's id
      * @return an optional object of user
      */
-    Optional<UserApp> findById(String username);
+    Optional<UserApp> findByUsername(String username);
 
     /**
      * Finds all the users of the db

@@ -42,7 +42,7 @@ public class UserAppRepositoryImpl implements UserAppRepository {
     @Override
     public String modify(UserAppPOJO userAppPojo) {
         entityManager.getTransaction().begin();
-        Optional<UserApp> userApp = this.findById(userAppPojo.getUsername());
+        Optional<UserApp> userApp = this.findByUsername(userAppPojo.getUsername());
         if (!userApp.isPresent()) return "No existe el usuario con el username ingresado!";
         userApp.get().setPassword(userAppPojo.getPassword());
         userApp.get().setEmail(userAppPojo.getEmail());
@@ -70,7 +70,7 @@ public class UserAppRepositoryImpl implements UserAppRepository {
      * @return an optional object of user
      */
     @Override
-    public Optional<UserApp> findById(String username) {
+    public Optional<UserApp> findByUsername(String username) {
         UserApp userApp = entityManager.find(UserApp.class, username);
         return userApp != null ? Optional.of(userApp) : Optional.empty();
     }

@@ -9,15 +9,11 @@ import java.util.List;
  */
 @Entity
 @Table(name = "Owner")
-@NamedQueries({
-        @NamedQuery(name = "Owner.findAll",
-                query = "SELECT o FROM Owner o")
-
-})
+@PrimaryKeyJoinColumn
 /**
  * Owner entity
  */
-public class Owner {
+public class Owner extends UserApp {
     /**
      * Define the attributes for the Owner entity, the Id and the relations
      */
@@ -47,7 +43,8 @@ public class Owner {
      * @param address,      the owner's address
      * @param neighborhood, the owner's neighborhood
      */
-    public Owner(String username, Integer person_id, String name, String address, String neighborhood) {
+    public Owner(String username, String password, String email, Integer person_id, String name, String address, String neighborhood) {
+        super(username, password, email, "owner");
         this.username = username;
         this.person_id = person_id;
         this.name = name;

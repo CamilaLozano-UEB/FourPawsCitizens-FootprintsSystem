@@ -33,6 +33,7 @@ public class VetService {
 
     /**
      * Method that save a Vet in the db
+     *
      * @param vetPOJO vet's pojo
      * @return string message
      */
@@ -41,7 +42,14 @@ public class VetService {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         vetRepository = new VetRepositoryImpl(entityManager);
 
-        Vet vet = new Vet(vetPOJO.getUsername(), vetPOJO.getName(), vetPOJO.getAddress(), vetPOJO.getNeighborhood());
+        Vet vet = new Vet(
+                vetPOJO.getUsername(),
+                vetPOJO.getPassword(),
+                vetPOJO.getEmail(),
+                vetPOJO.getName(),
+                vetPOJO.getAddress(),
+                vetPOJO.getNeighborhood()
+        );
         String message = vetRepository.save(vet);
 
         entityManager.close();

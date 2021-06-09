@@ -37,6 +37,7 @@ public class OwnerService {
 
     /**
      * Method that save the owner in OwnerPOJO
+     *
      * @param ownerPOJO owner's pojo
      * @return
      */
@@ -45,7 +46,16 @@ public class OwnerService {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         ownerRepository = new OwnerRepositoryImpl(entityManager);
 
-        Owner owner = new Owner(ownerPOJO.getUsername(), ownerPOJO.getPerson_id(), ownerPOJO.getName(), ownerPOJO.getAddress(), ownerPOJO.getNeighborhood());
+        Owner owner = new Owner(
+                ownerPOJO.getUsername(),
+                ownerPOJO.getPassword(),
+                ownerPOJO.getEmail(),
+                ownerPOJO.getPerson_id(),
+                ownerPOJO.getName(),
+                ownerPOJO.getAddress(),
+                ownerPOJO.getNeighborhood()
+        );
+
         String message = ownerRepository.save(owner);
 
         entityManager.close();
