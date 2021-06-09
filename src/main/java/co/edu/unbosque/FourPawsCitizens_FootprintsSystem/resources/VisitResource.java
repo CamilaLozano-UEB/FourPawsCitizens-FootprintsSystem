@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitNamePOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.PetService;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.VisitService;
@@ -78,12 +79,12 @@ public class VisitResource {
         } catch (ParseException e) {
             return Response.status(Response.Status.OK).entity("El formato de fecha es incorrecto!").build();
         }
-        List<VisitPOJO> visitPOJOS = new VisitService().
+        List<VisitNamePOJO> visitNamePOJOS = new VisitService().
                 findVisitsBetweenDatesByName(initDate, fDate, petName);
 
         return Response.
                 ok().
-                entity(visitPOJOS)
+                entity(visitNamePOJOS)
                 .build();
     }
 }

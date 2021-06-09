@@ -4,6 +4,7 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Visit;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.*;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitNamePOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 
 import javax.persistence.EntityManager;
@@ -103,7 +104,7 @@ public class VisitService {
      * @param petName the name of the pet to find
      * @return a list of visitPOJO
      */
-    public List<VisitPOJO> findVisitsBetweenDatesByName(Date date1, Date date2, String petName) {
+    public List<VisitNamePOJO> findVisitsBetweenDatesByName(Date date1, Date date2, String petName) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         visitRepository = new VisitRepositoryImpl(entityManager);
@@ -113,20 +114,21 @@ public class VisitService {
         }else{
             visits = visitRepository.findBetweenDatesByName(date2, date1);
         }
-        List<VisitPOJO> visitPOJOS = new ArrayList<>();
+        List<VisitNamePOJO> visitNamePOJOS = new ArrayList<>();
 
         visits.forEach(v -> {
             if (v.getPet().getName().equalsIgnoreCase(petName))
-                visitPOJOS.add(new VisitPOJO(v.getVisitId(),
+                visitNamePOJOS.add(new VisitNamePOJO(v.getVisitId(),
+                        v.getPet().getName(),
                         new SimpleDateFormat("dd/MM/yyyy").format(v.getCreatedAt()),
                         v.getType(),
                         v.getDescription(),
-                        null,
+                        v.getPet().getMicrochip(),
                         v.getVet().getUsername(),
                         v.getPet().getPet_id()));
         });
 
-        return visitPOJOS;
+        return visitNamePOJOS;
     }
     /**
      * Finds the list of visits in a range of dates for a pet in a descending way
