@@ -34,6 +34,9 @@ public class Official extends UserApp {
 
     /**
      * @param username the official's username
+     * @param password the official's password
+     * @param email    the official's email
+     * @param role     the official's role
      * @param name     the official's username
      */
     public Official(String username, String password, String email, String role, String name) {
