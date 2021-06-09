@@ -2,10 +2,7 @@ package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.PetCase;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.CaseRepository;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.CaseRepositoryImpl;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepository;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepositoryImpl;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.*;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.CasePOJO;
 
 import javax.persistence.EntityManager;
@@ -13,7 +10,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class CaseService {
@@ -55,4 +54,33 @@ public class CaseService {
         return message;
     }
 
+    /**
+     * Find the cases of a pet in a range of dates in a descending way
+     *
+     * @param date1 first date range
+     * @param date2 second date range
+     * @param pet_id the pet id
+     * @return a list of casesPOJO
+     */
+    public List<CasePOJO> findCasesBetweenDatesByPet(Date date1, Date date2, Integer pet_id) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        caseRepository = new CaseRepositoryImpl(entityManager);
+        List<PetCase> petCases;
+        if(date1.before(date2)){
+            petCases= caseRepository.findBetweenDates(date1,date2,pet_id);
+        }else{
+            petCases= caseRepository.findBetweenDates(date2,date1,pet_id);
+        }
+        List<CasePOJO> casePOJOS = new ArrayList<>();
+        petCases.forEach(c -> {
+                casePOJOS.add(new CasePOJO(c.getCaseId(),
+                        new SimpleDateFormat("dd/MM/yyyy").format(c.getCreatedAt()),
+                        c.getType(),
+                        c.getDescription(),
+                        c.getPet().getPet_id()));
+        });
+
+        return casePOJOS;
+    }
 }

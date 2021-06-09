@@ -1,7 +1,6 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.NameDateVisit;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.PetService;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.VisitService;
@@ -57,6 +56,14 @@ public class VisitResource {
         }
     }
 
+    /**
+     * Find the visits of a pet in a range of dates and a name of the pet in a descending way
+     *
+     * @param initialDate first date range
+     * @param finalDate second date range
+     * @param petName the name of the pet
+     * @return  a response status
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listPetsByDatesAndName(@QueryParam("initialDate") String initialDate,

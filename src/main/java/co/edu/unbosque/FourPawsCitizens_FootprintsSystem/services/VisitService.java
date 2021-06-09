@@ -95,12 +95,24 @@ public class VisitService {
         if (pet.get().getMicrochip() != null) return false;
         return true;
     }
-
+    /**
+     * Finds the list of visits in a range of dates for a pet in a descending way
+     *
+     * @param date1   first date range
+     * @param date2   second date range
+     * @param petName the name of the pet to find
+     * @return a list of visitPOJO
+     */
     public List<VisitPOJO> findVisitsBetweenDatesByName(Date date1, Date date2, String petName) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         visitRepository = new VisitRepositoryImpl(entityManager);
-        List<Visit> visits = visitRepository.findBetweenDatesByName(date1, date2);
+        List<Visit> visits;
+        if(date1.before(date2)){
+            visits = visitRepository.findBetweenDatesByName(date1, date2);
+        }else{
+            visits = visitRepository.findBetweenDatesByName(date2, date1);
+        }
         List<VisitPOJO> visitPOJOS = new ArrayList<>();
 
         visits.forEach(v -> {
@@ -110,6 +122,39 @@ public class VisitService {
                         v.getType(),
                         v.getDescription(),
                         null,
+                        v.getVet().getUsername(),
+                        v.getPet().getPet_id()));
+        });
+
+        return visitPOJOS;
+    }
+    /**
+     * Finds the list of visits in a range of dates for a pet in a descending way
+     *
+     * @param date1   first date range
+     * @param date2   second date range
+     * @param pet_id the pet id
+     * @return a list of visitPOJO
+     */
+    public List<VisitPOJO> findVisitsBetweenDatesByPet(Date date1, Date date2, Integer pet_id) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        visitRepository = new VisitRepositoryImpl(entityManager);
+        List<Visit> visits;
+        if(date1.before(date2)){
+            visits = visitRepository.findBetweenDatesByName(date1, date2);
+        }else{
+            visits = visitRepository.findBetweenDatesByName(date2, date1);
+        }
+        List<VisitPOJO> visitPOJOS = new ArrayList<>();
+
+        visits.forEach(v -> {
+            if (v.getPet().getPet_id().equals(pet_id))
+                visitPOJOS.add(new VisitPOJO(v.getVisitId(),
+                        new SimpleDateFormat("dd/MM/yyyy").format(v.getCreatedAt()),
+                        v.getType(),
+                        v.getDescription(),
+                        v.getPet().getMicrochip(),
                         v.getVet().getUsername(),
                         v.getPet().getPet_id()));
         });

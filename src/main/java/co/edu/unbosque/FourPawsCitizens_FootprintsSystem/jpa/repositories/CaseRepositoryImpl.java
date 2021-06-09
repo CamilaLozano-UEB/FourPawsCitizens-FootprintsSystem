@@ -58,7 +58,7 @@ public class CaseRepositoryImpl implements CaseRepository {
         List <PetCase> petCaseList= petcaseq.getResultList();
         List <PetCase> petCases= new ArrayList<>();
         for(int i = 0; i<petCaseList.size(); i++){
-            if(petCaseList.get(i).getPet().getPet_id()==pet_id){
+            if(petCaseList.get(i).getPet().getPet_id().equals(pet_id)){
                 petCases.add(petCaseList.get(i));
             }
         }
