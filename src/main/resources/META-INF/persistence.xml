@@ -6,9 +6,17 @@
     <persistence-unit name="FootprintsSystemDS" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/FootprintsSystemDS</jta-data-source>
+        <class>co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Owner</class>
+        <class>co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.UserApp</class>
+        <class>co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Visit</class>
+        <class>co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet</class>
+        <class>co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.PetCase</class>
+        <class>co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official</class>
+        <class>co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet</class>
+
         <properties>
-            <property name="hibernate.hbm2ddl.auto" value="update" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect" />
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL10Dialect"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
         </properties>

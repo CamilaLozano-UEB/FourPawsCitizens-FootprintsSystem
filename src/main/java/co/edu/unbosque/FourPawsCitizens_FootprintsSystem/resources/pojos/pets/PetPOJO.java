@@ -193,7 +193,7 @@ public class PetPOJO {
     }
 
     /**
-     * add the case to the list of cases
+     * add the case to the list of petCases
      *
      * @param onecase a new case of the pet
      */

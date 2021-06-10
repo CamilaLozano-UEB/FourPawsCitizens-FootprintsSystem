@@ -1,9 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,7 +26,7 @@ public class Pet {
     @Column(name = "pet_id")
     private Integer pet_id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "microchip", unique = true)
     private Long microchip;
 
     @Column(name = "name")
@@ -57,10 +55,9 @@ public class Pet {
     private Set<Visit> visits = new HashSet<>();
 
     @OneToMany(mappedBy = "pet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Case> cases = new HashSet<>();
+    private Set<PetCase> petCases = new HashSet<>();
 
     /**
-     * @param pet_id    the pet id
      * @param microchip the microchip of the pet
      * @param name      the name of the pet
      * @param species   the species of the pet
@@ -69,8 +66,7 @@ public class Pet {
      * @param sex       the sex of the pet
      * @param picture   the picture of the pet
      */
-    public Pet(Integer pet_id, Long microchip, String name, String species, String race, String size, String sex, String picture) {
-        this.pet_id = pet_id;
+    public Pet(Long microchip, String name, String species, String race, String size, String sex, String picture) {
         this.microchip = microchip;
         this.name = name;
         this.species = species;
@@ -230,14 +226,14 @@ public class Pet {
     /**
      * @return the pet's case list
      */
-    public Set<Case> getCases() {
-        return cases;
+    public Set<PetCase> getCases() {
+        return petCases;
     }
 
     /**
-     * @param cases the pet's visiting list
+     * @param petCases the pet's visiting list
      */
-    public void setCases(Set<Case> cases) {
-        this.cases = cases;
+    public void setCases(Set<PetCase> petCases) {
+        this.petCases = petCases;
     }
 }

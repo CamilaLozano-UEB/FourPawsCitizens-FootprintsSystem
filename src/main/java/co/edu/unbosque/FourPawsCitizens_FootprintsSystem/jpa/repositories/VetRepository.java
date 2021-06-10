@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.vet.VetPOJO;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +19,10 @@ public interface VetRepository {
     /**
      * Modify the attributes of an specific vet
      *
-     * @param username     the username of the vet
-     * @param name         vet's password
-     * @param address      vet´s email
-     * @param neighborhood vet's role
+     * @param vetPojo the data of pet in the db
      * @return a result message
      */
-    String modify(String username, String name, String address, String neighborhood);
+    String modify(VetPOJO vetPojo);
 
     /**
      * Delete an vet from the DB

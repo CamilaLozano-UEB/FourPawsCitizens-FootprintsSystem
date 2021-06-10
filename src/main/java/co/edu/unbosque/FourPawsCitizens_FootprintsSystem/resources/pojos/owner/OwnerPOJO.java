@@ -8,11 +8,14 @@ import java.util.List;
 public class OwnerPOJO {
 
     private String username;
+    private String password;
+    private String email;
+    private String role;
     private Integer person_id;
     private String name;
     private String address;
     private String neighborhood;
-    private List<PetPOJO> pets =new ArrayList<PetPOJO>();
+    private List<PetPOJO> pets = new ArrayList<PetPOJO>();
 
 
     public OwnerPOJO() {
@@ -20,14 +23,20 @@ public class OwnerPOJO {
     }
 
     /**
-     * @param username,     the owner's username
-     * @param person_id,    the owner's person id
-     * @param name,         the owner's name
-     * @param address,      the owner's address
-     * @param neighborhood, the owner's neighborhood
+     * @param username     the owner's username
+     * @param password     the owner´s password
+     * @param email        the owner's e-mail
+     * @param role         the role
+     * @param person_id    the owner's person id
+     * @param name         the owner's name
+     * @param address      the owner's address
+     * @param neighborhood the owner's neighborhood
      */
-    public OwnerPOJO(String username, Integer person_id, String name, String address, String neighborhood) {
+    public OwnerPOJO(String username, String password, String email, String role, Integer person_id, String name, String address, String neighborhood) {
         this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
         this.person_id = person_id;
         this.name = name;
         this.address = address;
@@ -35,7 +44,6 @@ public class OwnerPOJO {
     }
 
     /**
-     *
      * @return List of pets
      */
     public List<PetPOJO> getPets() {
@@ -43,7 +51,6 @@ public class OwnerPOJO {
     }
 
     /**
-     *
      * @param pets List of pets
      */
     public void setPets(List<PetPOJO> pets) {
@@ -122,11 +129,53 @@ public class OwnerPOJO {
 
     /**
      * add a pet to the list of pets
+     *
      * @param pet, a new pet of the owner
      */
     public void addPets(PetPOJO pet) {
         pets.add(pet);
     }
 
+    /**
+     * @return the owner password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the new owner password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @return the owner email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the new owner email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the owner role
+     */
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * @param role the new owner role
+     */
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
 

@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.vet.VetPOJO;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -35,20 +36,16 @@ public class VetRepositoryImpl implements VetRepository {
     /**
      * Modify the attributes of an specific vet
      *
-     * @param username     the username of the vet
-     * @param name         vet's password
-     * @param address      vet´s email
-     * @param neighborhood vet's role
+     * @param vetPojo the data of pet in the db
      * @return a result message
      */
     @Override
-    public String modify(String username, String name, String address, String neighborhood) {
+    public String modify(VetPOJO vetPojo) {
         entityManager.getTransaction().begin();
-        Optional<Vet> vet = this.findById(username);
+        Optional<Vet> vet = this.findById(vetPojo.getUsername());
         if (!vet.isPresent()) return "No existe la veterinaria con el username ingresado!";
-        vet.get().setName(name);
-        vet.get().setAddress(address);
-        vet.get().setNeighborhood(neighborhood);
+        vet.get().setAddress(vetPojo.getAddress());
+        vet.get().setNeighborhood(vetPojo.getNeighborhood());
         entityManager.getTransaction().commit();
         return "Se ha modificado exitosamente!";
     }

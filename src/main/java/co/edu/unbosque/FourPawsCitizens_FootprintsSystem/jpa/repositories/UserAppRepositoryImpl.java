@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.UserApp;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.userApp.UserAppPOJO;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -35,20 +36,17 @@ public class UserAppRepositoryImpl implements UserAppRepository {
     /**
      * Modify the attributes of an specific user
      *
-     * @param username the username of the user
-     * @param password user's password
-     * @param email    user´s email
-     * @param role     user's role
+     * @param userAppPojo the new data of the user in the db
      * @return a result message
      */
     @Override
-    public String modify(String username, String password, String email, String role) {
+    public String modify(UserAppPOJO userAppPojo) {
         entityManager.getTransaction().begin();
-        Optional<UserApp> userApp = this.findById(username);
+        Optional<UserApp> userApp = this.findByUsername(userAppPojo.getUsername());
         if (!userApp.isPresent()) return "No existe el usuario con el username ingresado!";
-        userApp.get().setPassword(password);
-        userApp.get().setEmail(email);
-        userApp.get().setRole(role);
+        userApp.get().setPassword(userAppPojo.getPassword());
+        userApp.get().setEmail(userAppPojo.getEmail());
+        userApp.get().setRole(userAppPojo.getRole());
         entityManager.getTransaction().commit();
         return "Se ha modificado exitosamente!";
     }
@@ -72,7 +70,7 @@ public class UserAppRepositoryImpl implements UserAppRepository {
      * @return an optional object of user
      */
     @Override
-    public Optional<UserApp> findById(String username) {
+    public Optional<UserApp> findByUsername(String username) {
         UserApp userApp = entityManager.find(UserApp.class, username);
         return userApp != null ? Optional.of(userApp) : Optional.empty();
     }

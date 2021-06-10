@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.UserApp;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.userApp.UserAppPOJO;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,13 +19,10 @@ public interface UserAppRepository {
     /**
      * Modify the attributes of an specific user
      *
-     * @param username the username of the user
-     * @param password user's password
-     * @param email    user´s email
-     * @param role     user's role
+     * @param userAppPojo the new data of the user in the db
      * @return a result message
      */
-    String modify(String username, String password, String email, String role);
+    String modify(UserAppPOJO userAppPojo);
 
     /**
      * Delete an user from the DB
@@ -39,7 +37,7 @@ public interface UserAppRepository {
      * @param username user's id
      * @return an optional object of user
      */
-    Optional<UserApp> findById(String username);
+    Optional<UserApp> findByUsername(String username);
 
     /**
      * Finds all the users of the db

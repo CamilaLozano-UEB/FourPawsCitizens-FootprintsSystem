@@ -9,11 +9,11 @@ import java.util.List;
  */
 @Entity
 @Table(name = "Official")
-
+@PrimaryKeyJoinColumn
 /**
  * Official entity
  */
-public class Official {
+public class Official extends UserApp {
 
     /**
      * Define the attributes for the Official entity, the Id and the relations
@@ -34,9 +34,13 @@ public class Official {
 
     /**
      * @param username the official's username
+     * @param password the official's password
+     * @param email    the official's email
+     * @param role     the official's role
      * @param name     the official's username
      */
-    public Official(String username, String name) {
+    public Official(String username, String password, String email, String role, String name) {
+        super(username, password, email, role);
         this.username = username;
         this.name = name;
     }

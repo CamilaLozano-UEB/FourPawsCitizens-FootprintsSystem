@@ -9,15 +9,11 @@ import java.util.List;
  */
 @Entity
 @Table(name = "Vet")
-@NamedQueries({
-        @NamedQuery(name = "Vet.findAll",
-                query = "SELECT vt FROM Vet vt")
-
-})
+@PrimaryKeyJoinColumn
 /**
  * Vet entity
  */
-public class Vet {
+public class Vet extends UserApp {
     /**
      * Define the attributes for the Vet entity, the Id and the relations
      */
@@ -39,11 +35,14 @@ public class Vet {
 
     /**
      * @param username,     the owner's username
+     * @param password  the owner´s password
+     * @param email    the owner´s email
      * @param name,         the owner's name
      * @param address,      the owner's address
      * @param neighborhood, the owner's neighborhood
      */
-    public Vet(String username, String name, String address, String neighborhood) {
+    public Vet(String username, String password, String email, String name, String address, String neighborhood) {
+        super(username, password, email, "vet");
         this.username = username;
         this.name = name;
         this.address = address;

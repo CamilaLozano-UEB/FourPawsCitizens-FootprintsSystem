@@ -9,20 +9,16 @@ import java.util.List;
  */
 @Entity
 @Table(name = "Owner")
-@NamedQueries({
-        @NamedQuery(name = "Owner.findAll",
-                query = "SELECT o FROM Owner o")
-
-})
+@PrimaryKeyJoinColumn
 /**
  * Owner entity
  */
-public class Owner {
+public class Owner extends UserApp {
     /**
      * Define the attributes for the Owner entity, the Id and the relations
      */
     @Id
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(nullable = false, unique = true)
@@ -42,12 +38,15 @@ public class Owner {
 
     /**
      * @param username,     the owner's username
+     * @param password the owner's password
+     *@param email    the owner's email
      * @param person_id,    the owner's person id
      * @param name,         the owner's name
      * @param address,      the owner's address
      * @param neighborhood, the owner's neighborhood
      */
-    public Owner(String username, Integer person_id, String name, String address, String neighborhood) {
+    public Owner(String username, String password, String email, Integer person_id, String name, String address, String neighborhood) {
+        super(username, password, email, "owner");
         this.username = username;
         this.person_id = person_id;
         this.name = name;
@@ -56,6 +55,16 @@ public class Owner {
     }
 
     public Owner() {
+    }
+
+    /**
+     * add a pet to the list of pets
+     *
+     * @param pet, a new pet of the owner
+     */
+    public void addPet(Pet pet) {
+        pets.add(pet);
+        pet.setOwner(this);
     }
 
     /**
@@ -142,13 +151,4 @@ public class Owner {
         this.pets = pets;
     }
 
-    /**
-     * add a pet to the list of pets
-     *
-     * @param pet, a new pet of the owner
-     */
-    public void addPet(Pet pet) {
-        pets.add(pet);
-        pet.setOwner(this);
-    }
 }

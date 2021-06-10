@@ -7,14 +7,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "UserApp")
-@NamedQueries({
-        @NamedQuery(name = "UserApp.findAll",
-                query = "SELECT u FROM UserApp u")
-})
+@Inheritance(strategy = InheritanceType.JOINED)
 /**
  * UserApp entity
  */
-public class UserApp {
+public abstract class UserApp {
 
     /**
      * Define the attributes for the UserApp entity, the Id and the relations

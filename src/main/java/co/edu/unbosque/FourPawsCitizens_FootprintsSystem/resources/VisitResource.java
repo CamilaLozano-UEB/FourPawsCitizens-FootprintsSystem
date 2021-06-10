@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitNamePOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.PetService;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.VisitService;
@@ -8,15 +9,25 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.VisitService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
-@Path("/vet/{vetId}/visits")
+@Path("/vet/{username}/visits")
 public class VisitResource {
-
+    /**
+     * Method that creates a visit. If the visit is microchip implantation validates it and save it in the db
+     *
+     * @param vetUsername, vet's username
+     * @param visitPOJO    vet's pojo
+     * @return a response status
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@PathParam("vetId") String vetUsername, VisitPOJO visitPOJO) {
-
+    public Response create(@PathParam("username") String vetUsername, VisitPOJO visitPOJO) {
+        String message;
         if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() == null) {
             return Response.status(Response.Status.FORBIDDEN)
                     .entity("La opción de implantación de microchip requiere que este sea especificado!!!")
@@ -27,19 +38,53 @@ public class VisitResource {
                     .build();
 
         } else if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() != null) {
+            if (new VisitService().verificateVisit(visitPOJO)) {
 
+                visitPOJO.setVetUsername(vetUsername);
 
-            visitPOJO.setVetUsername(vetUsername);
-            new VisitService().saveVisit(visitPOJO);
-            new PetService().modifyPet(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
-
-            return Response.status(Response.Status.CREATED).build();
+                message = new VisitService().saveVisit(visitPOJO);
+                new PetService().modifyPet(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
+            } else {
+                message = "Los datos ingresados son erroneos";
+            }
+            return Response.status(Response.Status.CREATED).entity(message).build();
         } else {
             visitPOJO.setVetUsername(vetUsername);
-
+            message = new VisitService().saveVisit(visitPOJO);
             return Response.status(Response.Status.CREATED)
-                    .entity(visitPOJO)
+                    .entity(message)
                     .build();
         }
+    }
+
+    /**
+     * Find the visits of a pet in a range of dates and a name of the pet in a descending way
+     *
+     * @param initialDate first date range
+     * @param finalDate second date range
+     * @param petName the name of the pet
+     * @return  a response status
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listPetsByDatesAndName(@QueryParam("initialDate") String initialDate,
+                                           @QueryParam("finalDate") String finalDate,
+                                           @QueryParam("petName") String petName) {
+        Date initDate, fDate;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            initDate = df.parse(initialDate);
+            fDate = df.parse(finalDate);
+        } catch (ParseException e) {
+            return Response.status(Response.Status.OK).entity("El formato de fecha es incorrecto!").build();
+        }
+        List<VisitNamePOJO> visitNamePOJOS = new VisitService().
+                findVisitsBetweenDatesByName(initDate, fDate, petName);
+
+        return Response.
+                ok().
+                entity(visitNamePOJOS)
+                .build();
     }
 }
