@@ -9,6 +9,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.CaseByType;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.Cases;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.official.OfficialPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.NeighborhoodOwner;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.TotalOwnersNeighborhood;
@@ -116,4 +118,19 @@ public class OfficialService {
         return petsPOJO;
     }
 
+    public Cases findTotalCasesPerType() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        officialRepository = new OfficialRepositoryImpl(entityManager);
+
+        List<String> petCaseList = officialRepository.findAllCasesType();
+        Set<String> petCaseListSet = new HashSet<>(petCaseList);
+
+        Cases cases = new Cases(petCaseList.size());
+
+        for (String caseType : petCaseListSet)
+            cases.getTotalCase().add(new CaseByType(caseType, Collections.frequency(petCaseList, caseType)));
+
+        return cases;
+    }
 }
