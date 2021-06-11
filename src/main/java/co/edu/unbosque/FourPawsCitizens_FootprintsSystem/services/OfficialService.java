@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Visit;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.*;
 
@@ -15,6 +16,9 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.officia
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.NeighborhoodOwner;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.TotalOwnersNeighborhood;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.*;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitByType;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitByVet;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.Visits;
 
 import javax.ejb.Stateless;
 import java.util.*;
@@ -133,4 +137,29 @@ public class OfficialService {
 
         return cases;
     }
+
+    public Visits findTotalVisitsByVetAndType() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        officialRepository = new OfficialRepositoryImpl(entityManager);
+
+        List<Vet> vets = officialRepository.findAllVisitsVets();
+        Set<Vet> vetsSet = new HashSet<>(vets);
+
+        Visits visits = new Visits(vets.size());
+
+        for (Vet vet : vetsSet)
+            visits.getVisitByVets().add(new VisitByVet(vet.getName(), Collections.frequency(vets, vet)));
+
+        List<String> types =officialRepository.findAllVisitsType();
+        Set<String> typesSet = new HashSet<>(types);
+
+        for (String type : typesSet)
+            visits.getVisitByType().add(new VisitByType(type,Collections.frequency(types,type)));
+
+        return visits;
+
+    }
+
+
 }

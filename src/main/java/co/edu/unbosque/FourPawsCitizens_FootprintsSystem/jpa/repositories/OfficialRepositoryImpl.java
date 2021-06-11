@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
 
 import javax.persistence.EntityManager;
 import java.util.Collections;
@@ -91,6 +92,22 @@ public class OfficialRepositoryImpl implements OfficialRepository {
     @Override
     public List<String> findAllCasesType() {
         return entityManager.createQuery("select c.type from PetCase c").getResultList();
+    }
+
+    /**
+     * @return all the vets that of the visits
+     */
+    @Override
+    public List<Vet> findAllVisitsVets() {
+        return entityManager.createQuery("select v.vet from Visit v").getResultList();
+    }
+
+    /**
+     * @return all the types of the visits
+     */
+    @Override
+    public List<String> findAllVisitsType() {
+        return entityManager.createQuery("select v.type from Visit v").getResultList();
     }
 
 }

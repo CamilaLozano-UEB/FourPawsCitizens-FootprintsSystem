@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,4 +57,16 @@ public interface OfficialRepository {
      * @return finds all the types of cases of the table PetCase on the db
      */
     List<String> findAllCasesType();
+
+    /**
+     * @return all the vets that of the visits
+     */
+    List<Vet> findAllVisitsVets();
+
+    /**
+     * @return all the types of the visits
+     */
+    List<String> findAllVisitsType();
+
+
 }

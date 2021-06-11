@@ -50,5 +50,11 @@ public class OfficialResource {
         return Response.ok().entity(new OfficialService().findTotalCasesPerType()).build();
     }
 
+    @GET
+    @Path("/visits")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response totalVisits() {
+        return Response.ok().entity(new OfficialService().findTotalVisitsByVetAndType()).build();
+    }
 
 }
