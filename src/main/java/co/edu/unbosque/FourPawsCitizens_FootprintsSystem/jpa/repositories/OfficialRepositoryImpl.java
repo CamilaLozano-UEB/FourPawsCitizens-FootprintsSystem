@@ -1,9 +1,9 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.official.OfficialPOJO;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +45,52 @@ public class OfficialRepositoryImpl implements OfficialRepository {
         return entityManager.createQuery("select o.neighborhood from Owner o").getResultList();
     }
 
+    /**
+     * @return finds all the species of the table Pet on the db
+     */
+    @Override
+    public List<String> findAllSpecies() {
+        return entityManager.createQuery("select p.species from Pet p").getResultList();
+    }
+
+    /**
+     * @return finds all the races of the table Pet on the db
+     */
+    @Override
+    public List<String> findAllRaces() {
+        return entityManager.createQuery("select p.race from Pet p").getResultList();
+    }
+
+    /**
+     * @return finds all the sizes of the table Pet on the db
+     */
+    @Override
+    public List<String> findAllSizes() {
+        return entityManager.createQuery("select p.size from Pet p").getResultList();
+    }
+
+    /**
+     * @return finds all the sexes of the table Pet on the db
+     */
+    @Override
+    public List<String> findAllSexes() {
+        return entityManager.createQuery("select p.sex from Pet p").getResultList();
+    }
+
+    /**
+     * @return the number of pets with microchip
+     */
+    @Override
+    public Long countPetsWithMicrochip() {
+        return Collections.max((List<Long>) entityManager.createQuery("select count(p) from Pet p where p.microchip is not null").getResultList());
+    }
+
+    /**
+     * @return finds all the types of cases of the table PetCase on the db
+     */
+    @Override
+    public List<String> findAllCasesType() {
+        return entityManager.createQuery("select c.type from PetCase c").getResultList();
+    }
 
 }
