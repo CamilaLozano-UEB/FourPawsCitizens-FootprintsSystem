@@ -24,7 +24,7 @@ public class UserAppService {
      */
     public Optional<String> validateUser( String username, String password ) {
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("tutorial");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         userAppRepository = new UserAppRepositoryImpl(entityManager);
