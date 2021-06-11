@@ -36,4 +36,14 @@ public class OfficialRepositoryImpl implements OfficialRepository {
     public List<Official> findAll() {
         return entityManager.createQuery("from Official ").getResultList();
     }
+
+    /**
+     * @return finds all the neighborhoods of the table owner on the db
+     */
+    @Override
+    public List<String> findAllNeighborhoods() {
+        return entityManager.createQuery("select o.neighborhood from Owner o").getResultList();
+    }
+
+
 }

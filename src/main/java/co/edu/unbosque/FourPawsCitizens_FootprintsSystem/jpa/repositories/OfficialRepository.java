@@ -22,4 +22,9 @@ public interface OfficialRepository {
      * @return a list of officials
      */
     List<Official> findAll();
+
+    /**
+     * @return finds all the neighborhoods of the table owner on the db
+     */
+    List<String> findAllNeighborhoods();
 }

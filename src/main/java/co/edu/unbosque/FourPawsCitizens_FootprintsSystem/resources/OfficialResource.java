@@ -2,6 +2,7 @@ package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.filters.Logged;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.official.OfficialPOJO;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.OfficialService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -9,6 +10,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/official")
 public class OfficialResource {
+
     @Logged
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -26,4 +28,13 @@ public class OfficialResource {
                 .build();
 
     }
+
+    @GET
+    @Path("/owners")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response totalOwnersByNeighborhood() {
+        return Response.ok().entity(new OfficialService().getTotalOwners()).build();
+    }
+
+
 }

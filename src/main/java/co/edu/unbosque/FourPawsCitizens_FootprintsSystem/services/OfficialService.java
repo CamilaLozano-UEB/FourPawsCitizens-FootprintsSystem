@@ -1,27 +1,27 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services;
 
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepository;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Owner;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.OfficialRepository;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.OfficialRepositoryImpl;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.official.OfficialPOJO;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.NeighborhoodOwner;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.TotalOwnersNeighborhood;
 
 import javax.ejb.Stateless;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Stateless
 public class OfficialService {
-    OfficialRepository officialRepository;
-    private PetRepository petRepository;
+    private OfficialRepository officialRepository;
 
     /**
      * List that calls the official
+     *
      * @return a official's pojo
      */
     public List<OfficialPOJO> listOfficial() {
@@ -40,7 +40,23 @@ public class OfficialService {
                     official.getName()
             ));
         }
-
         return officialPOJOS;
+    }
+
+    public TotalOwnersNeighborhood getTotalOwners() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        officialRepository = new OfficialRepositoryImpl(entityManager);
+
+        List<String> neighborhoods = officialRepository.findAllNeighborhoods();
+        Set<String> neighborhoodsSet = new HashSet<>(neighborhoods);
+
+        TotalOwnersNeighborhood totalOwners = new TotalOwnersNeighborhood(neighborhoods.size());
+
+        for (String neighborhood : neighborhoodsSet)
+            totalOwners.addNeighborhoodOwnersTotal(
+                    new NeighborhoodOwner(neighborhood, Collections.frequency(neighborhoods, neighborhood)));
+
+        return totalOwners;
     }
 }
