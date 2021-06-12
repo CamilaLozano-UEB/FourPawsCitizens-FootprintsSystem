@@ -45,6 +45,13 @@ public class VetResource {
                 .entity(message)
                 .build();
     }
+
+    /**
+     * Verify the login and the role of the user
+     *
+     * @param role user's role
+     * @return response message
+     */
     @Logged
     @GET
     @Produces(MediaType.TEXT_PLAIN)
