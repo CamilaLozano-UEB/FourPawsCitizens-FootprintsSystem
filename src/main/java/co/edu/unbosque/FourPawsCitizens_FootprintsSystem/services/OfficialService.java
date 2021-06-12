@@ -22,7 +22,6 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.V
 
 import javax.ejb.Stateless;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Stateless
 public class OfficialService {
@@ -151,14 +150,49 @@ public class OfficialService {
         for (Vet vet : vetsSet)
             visits.getVisitByVets().add(new VisitByVet(vet.getName(), Collections.frequency(vets, vet)));
 
-        List<String> types =officialRepository.findAllVisitsType();
+        List<String> types = officialRepository.findAllVisitsType();
         Set<String> typesSet = new HashSet<>(types);
 
         for (String type : typesSet)
-            visits.getVisitByType().add(new VisitByType(type,Collections.frequency(types,type)));
+            visits.getVisitByType().add(new VisitByType(type, Collections.frequency(types, type)));
 
         return visits;
 
+    }
+
+    public List<PetPOJO> findPetsFiltered(String idF, String microchipF, String nameF, String speciesF, String raceF, String sizeF, String sexF) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        officialRepository = new OfficialRepositoryImpl(entityManager);
+
+        String query = (idF == null ? "" : " AND p.pet_id = " + idF) +
+                (microchipF == null ? "" : " AND p.microchip = " + microchipF) +
+                (nameF == null ? "" : " AND p.name = '" + nameF + "'") +
+                (speciesF == null ? "" : " AND p.species IN (" + speciesF + ")") +
+                (raceF == null ? "" : " AND p.race = " + raceF) +
+                (sizeF == null ? "" : " AND p.size IN (" + sizeF + ")") +
+                (sexF == null ? "" : " AND p.sex IN (" + sexF + ")");
+
+        if (!query.isEmpty()) {
+            query = " WHERE " + query.replaceFirst(" AND", "");
+        }
+        List<Pet> pets = officialRepository.findPetsWithFilter(query);
+        List<PetPOJO> petPOJOList = new ArrayList<>();
+
+        for (Pet pet : pets) {
+            petPOJOList.add(new PetPOJO(
+                    pet.getPet_id(),
+                    pet.getMicrochip(),
+                    pet.getName(),
+                    pet.getSpecies(),
+                    pet.getRace(),
+                    pet.getSize(),
+                    pet.getSex(),
+                    pet.getPicture(),
+                    pet.getOwner().getUsername()));
+        }
+
+        return petPOJOList;
     }
 
 

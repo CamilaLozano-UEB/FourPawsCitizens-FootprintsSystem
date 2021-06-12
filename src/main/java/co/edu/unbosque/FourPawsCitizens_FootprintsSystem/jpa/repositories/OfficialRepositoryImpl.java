@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
 
 import javax.persistence.EntityManager;
@@ -109,5 +110,15 @@ public class OfficialRepositoryImpl implements OfficialRepository {
     public List<String> findAllVisitsType() {
         return entityManager.createQuery("select v.type from Visit v").getResultList();
     }
+
+    /**
+     * @param queryParts the query´s to make the filter
+     * @return a list of Pet with the specific information
+     */
+    @Override
+    public List<Pet> findPetsWithFilter(String queryParts) {
+        return entityManager.createQuery("SELECT p FROM Pet p" + queryParts).getResultList();
+    }
+
 
 }
