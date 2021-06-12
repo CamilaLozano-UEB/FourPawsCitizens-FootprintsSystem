@@ -39,7 +39,7 @@ public class VisitResource {
                     .build();
 
         } else if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() != null) {
-            if (new VisitService().verificateVisit(visitPOJO)) {
+            if (new VisitService().verifyMicrochipVisit(visitPOJO)) {
 
                 message = new VisitService().saveVisit(visitPOJO);
                 new PetService().modifyPet(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
@@ -48,7 +48,11 @@ public class VisitResource {
             }
             return Response.status(Response.Status.CREATED).entity(message).build();
         } else {
-            message = new VisitService().saveVisit(visitPOJO);
+            if (new VisitService().verifyMicrochipVisit(visitPOJO)) {
+                message = new VisitService().saveVisit(visitPOJO);
+            } else {
+                message = "Los datos ingresados son erroneos";
+            }
             return Response.status(Response.Status.CREATED)
                     .entity(message)
                     .build();
@@ -59,9 +63,9 @@ public class VisitResource {
      * Find the visits of a pet in a range of dates and a name of the pet in a descending way
      *
      * @param initialDate first date range
-     * @param finalDate second date range
-     * @param petName the name of the pet
-     * @return  a response status
+     * @param finalDate   second date range
+     * @param petName     the name of the pet
+     * @return a response status
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.PetCase;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Visit;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.*;
@@ -30,15 +31,10 @@ public class VisitService {
         visitRepository = new VisitRepositoryImpl(entityManager);
         petRepository = new PetRepositoryImpl(entityManager);
         vetRepository = new VetRepositoryImpl(entityManager);
-        // Creating an optional pet object and find the id of the pet in the visit's pojo
-        Optional<Pet> pet = petRepository.findById(visitPOJO.getPet_id());
 
-        //if the id doesn't present return a string message
-        if (!pet.isPresent()) return "El id de la mascota ingresado no existe!";
-        // Creating an optional vet object and find the id of the vet in the visit's pojo
-        Optional<Vet> vet = vetRepository.findById(visitPOJO.getVetUsername());
-        //If the id doesn't exist return a string message
-        if (!vet.isPresent()) return "El user name de la veterinaria ingresado no existe!";
+        Pet pet = petRepository.findById(visitPOJO.getPet_id()).get();
+
+        Vet vet = vetRepository.findById(visitPOJO.getVetUsername()).get();
 
         //Validating the format of the date, passing date of string to date
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -50,18 +46,13 @@ public class VisitService {
         }
 
         //Creating the visit and save it in the repository
-        Visit visit = new Visit(createdAt, visitPOJO.getType(), visitPOJO.getDescription(), vet.get(), pet.get());
+        Visit visit = new Visit(createdAt, visitPOJO.getType(), visitPOJO.getDescription(), vet, pet);
 
-        pet.ifPresent(p -> {
-            p.addVisit(visit);
-            petRepository.save(p);
+        pet.addVisit(visit);
+        petRepository.save(pet);
 
-        });
-
-        vet.ifPresent(v -> {
-            v.addVisit(visit);
-            vetRepository.save(v);
-        });
+        vet.addVisit(visit);
+        vetRepository.save(vet);
 
         entityManager.close();
         entityManagerFactory.close();
@@ -74,7 +65,7 @@ public class VisitService {
      * @param visitPOJO visit's pojo
      * @return a boolean value
      */
-    public boolean verificateVisit(VisitPOJO visitPOJO) {
+    public boolean verifyMicrochipVisit(VisitPOJO visitPOJO) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         petRepository = new PetRepositoryImpl(entityManager);
@@ -93,9 +84,43 @@ public class VisitService {
         //If the id doesn't exist return false
         if (!vet.isPresent()) return false;
 
-        if (pet.get().getMicrochip() != null) return false;
+        return pet.get().getMicrochip() == null;
+    }
+
+    /**
+     * Method that verify the existence of a visit in the db
+     *
+     * @param visitPOJO visit's pojo
+     * @return a boolean value
+     */
+    public boolean verifySterilizationVisit(VisitPOJO visitPOJO) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        petRepository = new PetRepositoryImpl(entityManager);
+        petRepository = new PetRepositoryImpl(entityManager);
+        vetRepository = new VetRepositoryImpl(entityManager);
+
+        // Creating an optional pet object and find the id of the pet in the visit's pojo
+        Optional<Pet> pet = petRepository.findById(visitPOJO.getPet_id());
+
+        //If the id doesn't exist return false
+        if (!pet.isPresent()) return false;
+
+        // Creating an optional vet object and find the id of the vet in the visit's pojo
+        Optional<Vet> vet = vetRepository.findById(visitPOJO.getVetUsername());
+
+        //If the id doesn't exist return false
+        if (!vet.isPresent()) return false;
+
+        Set<PetCase> cases = pet.get().getCases();
+        System.out.println("verga" + cases.size());
+        for (PetCase petCase : cases) {
+            System.out.println("verga" + petCase.getType());
+            if (!petCase.getType().equalsIgnoreCase("Esterilización")) return false;
+        }
         return true;
     }
+
     /**
      * Finds the list of visits in a range of dates for a pet in a descending way
      *
@@ -109,9 +134,9 @@ public class VisitService {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         visitRepository = new VisitRepositoryImpl(entityManager);
         List<Visit> visits;
-        if(date1.before(date2)){
+        if (date1.before(date2)) {
             visits = visitRepository.findBetweenDatesByName(date1, date2);
-        }else{
+        } else {
             visits = visitRepository.findBetweenDatesByName(date2, date1);
         }
         List<VisitNamePOJO> visitNamePOJOS = new ArrayList<>();
@@ -130,11 +155,12 @@ public class VisitService {
 
         return visitNamePOJOS;
     }
+
     /**
      * Finds the list of visits in a range of dates for a pet in a descending way
      *
-     * @param date1   first date range
-     * @param date2   second date range
+     * @param date1  first date range
+     * @param date2  second date range
      * @param pet_id the pet id
      * @return a list of visitPOJO
      */
@@ -143,9 +169,9 @@ public class VisitService {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         visitRepository = new VisitRepositoryImpl(entityManager);
         List<Visit> visits;
-        if(date1.before(date2)){
+        if (date1.before(date2)) {
             visits = visitRepository.findBetweenDatesByName(date1, date2);
-        }else{
+        } else {
             visits = visitRepository.findBetweenDatesByName(date2, date1);
         }
         List<VisitPOJO> visitPOJOS = new ArrayList<>();
