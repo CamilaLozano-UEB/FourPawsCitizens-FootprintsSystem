@@ -20,6 +20,11 @@ public class SecutiryFilter implements ContainerRequestFilter {
     private static final String AUTHORIZATION_HEADER_KEY = "Authorization";
     private static final String AUTHORIZATION_HEADER_PREFIX = "Basic ";
 
+    /**
+     * Authenticate the user from the search for the role to allow him to enter the platform
+     * @param requestContext, get the input data from the header
+     * @throws IOException exception
+     */
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
 

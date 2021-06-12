@@ -8,13 +8,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 @Path("/owners")
 public class OwnersResource {
 
     /**
      * Method that creates an owner and save it to the db
+     *
      * @param ownerPOJO owner's pojo
      * @return a response status
      */
@@ -31,11 +31,17 @@ public class OwnersResource {
                 .build();
     }
 
+    /**
+     * Verify the login and the role of the user
+     *
+     * @param role user's rol
+     * @return response message
+     */
     @Logged
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response hello(@HeaderParam("role") String role) {
-        URI uri= null;
+        URI uri = null;
 
         // If role doesn't match
         if (!"owner".equals(role)) {
