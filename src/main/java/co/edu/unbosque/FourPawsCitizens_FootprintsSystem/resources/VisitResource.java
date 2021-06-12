@@ -20,7 +20,7 @@ public class VisitResource {
      * Method that creates a visit. If the visit is microchip implantation validates it and save it in the db
      *
      * @param vetUsername, vet's username
-     * @param visitPOJO    vet's pojo
+     * @param visitPOJO    visit's pojo
      * @return a response status
      */
     @POST

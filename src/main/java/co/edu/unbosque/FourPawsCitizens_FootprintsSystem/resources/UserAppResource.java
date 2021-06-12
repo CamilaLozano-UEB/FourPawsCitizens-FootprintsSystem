@@ -23,7 +23,7 @@ public class UserAppResource {
             return Response.status(Response.Status.FORBIDDEN)
                     .entity("Role " + role + " cannot access to this method")
                     .build();
-        System.out.println("entors");
+
         return Response.ok()
                 .entity( role )
                 .build();
