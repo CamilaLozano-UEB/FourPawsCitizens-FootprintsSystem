@@ -51,6 +51,5 @@
 	<dd><b>7.17.</b> Para visualizar la tabla de mascotas ingrese a la pestaña de tabla de mascotas, ahi podra visualizarlas todas, discriminadas por: especie, raza, tamaño, sexo, microchip, esterilización, total de casos discriminados por tipo y el total de visitas discriminadas por veterinaria y por tipo</dd>
 	<dd><b>7.18.</b> Para visualizar la tabla de propietarios ingrese a la pestaña de tabla de propietarios, ahi podra visualizarlos discriminados por: localidad y total de mascotas registradas </dd>
 	<dd><b>7.19.</b>Por ultimo tambien podra acceder a una tabla de mascotas donde podra filtrar los datos de: identificación, microchip, nombre, especie, raza, tamaño y sexo. Solo seleccione e ingrese en los campos de filtro las especificaciones que desea, dele click en el botón de filtrar y tendra las mascotas acorde a las caracteristicas</dd>
-	<dd><b>7.20.</b></dd>
 	</dl>
 </html>
