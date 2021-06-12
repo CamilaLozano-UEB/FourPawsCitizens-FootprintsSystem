@@ -112,12 +112,11 @@ public class VisitService {
         //If the id doesn't exist return false
         if (!vet.isPresent()) return false;
 
-        Set<PetCase> cases = pet.get().getCases();
-        System.out.println("verga" + cases.size());
-        for (PetCase petCase : cases) {
-            System.out.println("verga" + petCase.getType());
-            if (!petCase.getType().equalsIgnoreCase("Esterilización")) return false;
-        }
+        Set<Visit> visits = pet.get().getVisits();
+
+        for (Visit visit : visits)
+            if (!visit.getType().equalsIgnoreCase("Esterilización")) return false;
+
         return true;
     }
 

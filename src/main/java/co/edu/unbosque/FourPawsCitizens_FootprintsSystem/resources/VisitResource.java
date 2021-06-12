@@ -48,7 +48,7 @@ public class VisitResource {
             }
             return Response.status(Response.Status.CREATED).entity(message).build();
         } else {
-            if (new VisitService().verifyMicrochipVisit(visitPOJO)) {
+            if (new VisitService().verifySterilizationVisit(visitPOJO)) {
                 message = new VisitService().saveVisit(visitPOJO);
             } else {
                 message = "Los datos ingresados son erroneos";
