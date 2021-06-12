@@ -28,6 +28,7 @@ public class VisitResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("username") String vetUsername, VisitPOJO visitPOJO) {
         String message;
+        visitPOJO.setVetUsername(vetUsername);
         if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() == null) {
             return Response.status(Response.Status.FORBIDDEN)
                     .entity("La opción de implantación de microchip requiere que este sea especificado!!!")
@@ -40,8 +41,6 @@ public class VisitResource {
         } else if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() != null) {
             if (new VisitService().verificateVisit(visitPOJO)) {
 
-                visitPOJO.setVetUsername(vetUsername);
-
                 message = new VisitService().saveVisit(visitPOJO);
                 new PetService().modifyPet(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
             } else {
@@ -49,7 +48,6 @@ public class VisitResource {
             }
             return Response.status(Response.Status.CREATED).entity(message).build();
         } else {
-            visitPOJO.setVetUsername(vetUsername);
             message = new VisitService().saveVisit(visitPOJO);
             return Response.status(Response.Status.CREATED)
                     .entity(message)
