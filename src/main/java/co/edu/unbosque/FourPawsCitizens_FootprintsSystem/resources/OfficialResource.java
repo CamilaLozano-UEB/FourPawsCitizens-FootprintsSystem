@@ -18,11 +18,10 @@ public class OfficialResource {
 
         // If role doesn't match
         if (!"official".equals(role))
-            // Response.temporaryRedirect(Regresar Al inicio)
             return Response.status(Response.Status.FORBIDDEN)
                     .entity("Role " + role + " cannot access to this method")
                     .build();
-        //Response.temporaryRedirect(URI) la pagina de official acceptado
+
         return Response.ok()
                 .entity("Hello, World, " + role + "!")
                 .build();

@@ -38,25 +38,12 @@ public class OwnersResource {
         URI uri= null;
 
         // If role doesn't match
-        if (!"owner".equals(role)) {try {
-            uri = new URI("http://127.0.0.1:8081/owner.html");
-            Response.temporaryRedirect(uri);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
+        if (!"owner".equals(role)) {
             return Response.status(Response.Status.FORBIDDEN)
                     .entity("Role " + role + " cannot access to this method")
                     .build();
         }
 
-        try {
-            uri = new URI("http://127.0.0.1:8081/owner.html");
-            System.out.println(uri);
-            Response.temporaryRedirect(uri);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
 
         return Response.ok()
                 .entity("Hello, World, " + role + "!")
