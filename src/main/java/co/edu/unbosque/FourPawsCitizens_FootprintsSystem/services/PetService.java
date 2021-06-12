@@ -71,6 +71,12 @@ public class PetService {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         petRepository = new PetRepositoryImpl(entityManager);
 
+        List<Pet> petList = petRepository.findAll();
+        //If the owner with the id exist, scroll through the pet list to verify that the microchip does not exist
+        for (int i = 0; i < petList.size(); ++i) {
+            if (petList.get(i).getMicrochip() != null && petList.get(i).getMicrochip().equals(petPOJO.getMicrochip()))
+                return "El microchip ingresado ya existe ";
+        }
         String message = petRepository.modify(petPOJO);
 
         entityManager.close();
