@@ -1,10 +1,8 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.CasePOJO;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.CaseService;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.PetService;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.VisitService;
 
 import javax.ws.rs.*;
@@ -21,9 +19,9 @@ public class PetCaseAndVisitResource {
      * Find the visits of a pet in a range of dates in a descending way
      *
      * @param initialDate first date range
-     * @param finalDate second date range
-     * @param pet_id the pet id
-     * @return  a response status
+     * @param finalDate   second date range
+     * @param pet_id      the pet id
+     * @return a response status
      */
     @GET
     @Path("/visits")
@@ -48,20 +46,21 @@ public class PetCaseAndVisitResource {
                 entity(visitPOJOS)
                 .build();
     }
+
     /**
      * Find the cases of a pet in a range of dates in a descending way
      *
      * @param initialDate first date range
-     * @param finalDate second date range
-     * @param pet_id the pet id
-     * @return  a response status
+     * @param finalDate   second date range
+     * @param pet_id      the pet id
+     * @return a response status
      */
     @GET
     @Path("/cases")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listPetsByDatesAndPet(@QueryParam("initialDate") String initialDate,
-                                           @QueryParam("finalDate") String finalDate,
-                                           @PathParam("pet_id") Integer pet_id) {
+                                          @QueryParam("finalDate") String finalDate,
+                                          @PathParam("pet_id") Integer pet_id) {
         Date initDate, fDate;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
