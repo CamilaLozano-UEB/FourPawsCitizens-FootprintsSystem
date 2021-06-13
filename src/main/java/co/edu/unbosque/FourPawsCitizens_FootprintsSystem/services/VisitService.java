@@ -32,6 +32,19 @@ public class VisitService {
         petRepository = new PetRepositoryImpl(entityManager);
         vetRepository = new VetRepositoryImpl(entityManager);
 
+        // Creating an optional pet object and find the id of the pet in the visit's pojo
+        Optional<Pet> petO = petRepository.findById(visitPOJO.getPet_id());
+
+        //If the id doesn't exist return false
+
+        if (!petO.isPresent()) return "No existe esa identificación de mascota";
+
+        // Creating an optional vet object and find the id of the vet in the visit's pojo
+        Optional<Vet> vetO = vetRepository.findById(visitPOJO.getVetUsername());
+
+        //If the id doesn't exist return false
+        if (!vetO.isPresent()) return "No existe esa veterinaria";
+
         Pet pet = petRepository.findById(visitPOJO.getPet_id()).get();
 
         Vet vet = vetRepository.findById(visitPOJO.getVetUsername()).get();
@@ -104,6 +117,7 @@ public class VisitService {
         Optional<Pet> pet = petRepository.findById(visitPOJO.getPet_id());
 
         //If the id doesn't exist return false
+
         if (!pet.isPresent()) return false;
 
         // Creating an optional vet object and find the id of the vet in the visit's pojo
@@ -115,7 +129,7 @@ public class VisitService {
         Set<Visit> visits = pet.get().getVisits();
 
         for (Visit visit : visits)
-            if (!visit.getType().equalsIgnoreCase("Esterilización")) return false;
+            if (visit.getType().equals("Esterilización")) return false;
 
         return true;
     }
