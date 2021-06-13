@@ -38,7 +38,7 @@ public class PetService {
 
         List<Pet> petList = petRepository.findAll();
         //If the owner with the id exist, scroll through the pet list to verify that the microchip does not exist
-        for (int i = 0; i < petList.size(); ++i) {
+        for (int i = 0; i < petList.size(); i++) {
             if (petList.get(i).getMicrochip() != null && petList.get(i).getMicrochip().equals(petPOJO.getMicrochip()))
                 return "El microchip ingresado ya existe ";
         }
@@ -73,9 +73,13 @@ public class PetService {
 
         List<Pet> petList = petRepository.findAll();
         //If the owner with the id exist, scroll through the pet list to verify that the microchip does not exist
-        for (int i = 0; i < petList.size(); ++i) {
-            if (petList.get(i).getMicrochip() != null && petList.get(i).getMicrochip().equals(petPOJO.getMicrochip()))
+        for (int i = 0; i < petList.size(); i++) {
+            if (petList.get(i).getMicrochip() != null && petList.get(i).getMicrochip().equals(petPOJO.getMicrochip())
+                    &&!petPOJO.getPet_id().equals(petList.get(i).getPet_id())&&petList.get(i).getMicrochip() != 0
+                    &&petPOJO.getMicrochip() != 0){
                 return "El microchip ingresado ya existe ";
+            }
+
         }
         String message = petRepository.modify(petPOJO);
 
