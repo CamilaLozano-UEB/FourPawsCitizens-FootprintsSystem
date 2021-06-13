@@ -11,8 +11,9 @@ import javax.ws.rs.core.Response;
 public class PetsResource {
     /**
      * Method that creates a pet and save it in the db
+     *
      * @param username owner's username
-     * @param petPOJO pet's pojo
+     * @param petPOJO  pet's pojo
      * @return a response status
      */
     @POST
@@ -31,7 +32,8 @@ public class PetsResource {
 
     /**
      * Method that modify a pet. Compare the ids and update the data in the db
-     * @param petId pet's id
+     *
+     * @param petId   pet's id
      * @param petPojo pet's pojo
      * @return a response status
      */

@@ -4,13 +4,13 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.servlet.ServletContext;
-
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -22,6 +22,13 @@ public class UploadResource {
 
     private final String UPLOAD_DIRECTORY = "/image/";
 
+    /**
+     * Create the image in a directory called image
+     *
+     * @param servletContext servlet access
+     * @param input          form data image
+     * @return response status
+     */
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadFile(@Context ServletContext servletContext, MultipartFormDataInput input) {
@@ -41,7 +48,7 @@ public class UploadResource {
                 fileName = parseFileName(headers);
 
                 // Handling the body of the part with an InputStream
-                InputStream istream = inputPart.getBody(InputStream.class,null);
+                InputStream istream = inputPart.getBody(InputStream.class, null);
 
                 saveFile(istream, fileName, servletContext);
 
@@ -50,12 +57,19 @@ public class UploadResource {
             }
 
         }
-//C:\Users\jvtp0\git\FourPawsCitizens-FootprintsSystem\target\FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT\image
+
+        //Place where the image directory is it
+        // FourPawsCitizens-FootprintsSystem\target\FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT\image
 
         return Response.status(200).entity(fileName).build();
     }
 
-    // Parse Content-Disposition header to get the file name
+    /**
+     * Parse Content-Disposition header to get the file name
+     *
+     * @param headers check existence of the image
+     * @return string fileName
+     */
     private String parseFileName(MultivaluedMap<String, String> headers) {
 
         String[] contentDispositionHeader = headers.getFirst("Content-Disposition").split(";");
@@ -63,15 +77,22 @@ public class UploadResource {
         for (String name : contentDispositionHeader) {
             if ((name.trim().startsWith("filename"))) {
                 String[] tmp = name.split("=");
-                String fileName = tmp[1].trim().replaceAll("\"","");
-                fileName=getNameAlfaNumeric(fileName);
+                String fileName = tmp[1].trim().replaceAll("\"", "");
+                fileName = getNameAlfaNumeric(fileName);
                 return fileName;
             }
         }
         return "unknown";
     }
 
-    // Save uploaded file to a defined location on the server
+
+    /**
+     * Save uploaded file to a defined location on the server
+     *
+     * @param uploadedInputStream download de image
+     * @param fileName            String of the image
+     * @param servletContext      servlet access
+     */
     private void saveFile(InputStream uploadedInputStream, String fileName, ServletContext servletContext) {
 
         int read = 0;
@@ -100,8 +121,9 @@ public class UploadResource {
         }
 
     }
+
     /**
-     *This method make the name alfanumeric of the image with 28 characters in upper and lower case
+     * This method make the name alfanumeric of the image with 28 characters in upper and lower case
      *
      * @param fileName, it's the file name where will be the image
      * @return namePhoto.toString() + fileName.substring(fileName.lastIndexOf(".")), it's the new name of the image with type of file

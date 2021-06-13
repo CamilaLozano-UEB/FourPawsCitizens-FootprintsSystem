@@ -47,7 +47,7 @@ public class VisitResource {
                 message = "Los datos ingresados son erroneos";
             }
             return Response.status(Response.Status.CREATED).entity(message).build();
-        } else if(visitPOJO.getType().equals("Esterilización")) {
+        } else if (visitPOJO.getType().equals("Esterilización")) {
 
             if (new VisitService().verifySterilizationVisit(visitPOJO)) {
                 message = new VisitService().saveVisit(visitPOJO);
@@ -57,7 +57,7 @@ public class VisitResource {
             return Response.status(Response.Status.CREATED)
                     .entity(message)
                     .build();
-        }else{
+        } else {
             message = new VisitService().saveVisit(visitPOJO);
             return Response.status(Response.Status.CREATED)
                     .entity(message)
