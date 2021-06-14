@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -49,7 +50,13 @@ public class UploadResource {
 
                 // Handling the body of the part with an InputStream
                 InputStream istream = inputPart.getBody(InputStream.class, null);
+               if(fileName.equals("unknown") ) {
+                   return Response.status(200).entity("unknown").build();
 
+               }else if(!fileName.substring(fileName.lastIndexOf(".")).toUpperCase().equals("JPG")&&!fileName.substring(fileName.lastIndexOf(".")).toUpperCase().equals("PNG")){
+                   return Response.status(200).entity("No es una imagen").build();
+
+               }
                 saveFile(istream, fileName, servletContext);
 
             } catch (IOException e) {
