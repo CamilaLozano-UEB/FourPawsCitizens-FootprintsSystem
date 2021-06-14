@@ -84,9 +84,7 @@ public class OwnerService {
         List<PetPOJO> petPOJOList = new ArrayList<>();
         //If the owner exist, list the pets of this owner
         for (int i = 0; i < pet.size(); i++) {
-            System.out.println("Espera");
             if(pet.get(i).getOwner().getUsername().equals(username)){
-                System.out.println("Entra");
                 petPOJOList.add(new PetPOJO(
                         pet.get(i).getPet_id(),
                         pet.get(i).getMicrochip(),

@@ -168,14 +168,13 @@ public class OfficialService {
                 (microchipF == null ? "" : " AND p.microchip = " + microchipF) +
                 (nameF == null ? "" : " AND p.name = '" + nameF + "'") +
                 (speciesF == null ? "" : " AND p.species IN (" + speciesF + ")") +
-                (raceF == null ? "" : " AND p.race = " + raceF) +
+                (raceF == null ? "" : " AND p.race = '" + raceF + "'") +
                 (sizeF == null ? "" : " AND p.size IN (" + sizeF + ")") +
                 (sexF == null ? "" : " AND p.sex IN (" + sexF + ")");
 
         if (!query.isEmpty()) {
             query = " WHERE " + query.replaceFirst(" AND", "");
         }
-        System.out.println(speciesF);
         List<Pet> pets = officialRepository.findPetsWithFilter(query);
         List<PetBasicPOJO> petBasicPOJOList = new ArrayList<>();
 
