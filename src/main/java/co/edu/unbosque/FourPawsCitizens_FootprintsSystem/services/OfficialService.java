@@ -1,13 +1,15 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services;
 
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Visit;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.OfficialRepository;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.OfficialRepositoryImpl;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepository;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepositoryImpl;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.*;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.CaseByType;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.cases.Cases;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.official.OfficialPOJO;
@@ -19,9 +21,6 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.V
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.Visits;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.*;
 
 @Stateless
@@ -53,11 +52,6 @@ public class OfficialService {
         return officialPOJOS;
     }
 
-    /**
-     * List all the owners in a specific neighborhood
-     *
-     * @return the owners
-     */
     public TotalOwnersNeighborhood getTotalOwners() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -67,7 +61,7 @@ public class OfficialService {
         Set<String> neighborhoodsSet = new HashSet<>(neighborhoods);
 
         TotalOwnersNeighborhood totalOwners = new TotalOwnersNeighborhood(neighborhoods.size());
-        //check the neighborhoods and save the owners depending on your neighborhood
+
         for (String neighborhood : neighborhoodsSet)
             totalOwners.addNeighborhoodOwnersTotal(
                     new NeighborhoodOwner(neighborhood, Collections.frequency(neighborhoods, neighborhood)));
@@ -75,11 +69,6 @@ public class OfficialService {
         return totalOwners;
     }
 
-    /**
-     * List all the pets registered in the db
-     *
-     * @return pets
-     */
     public Pets petsRegistered() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -117,13 +106,12 @@ public class OfficialService {
             petsPOJO.getSexPets().add(new SexPets(sex, Collections.frequency(elements, sex)));
 
         petsPOJO.setTotalPetsWithMicrochip(officialRepository.countPetsWithMicrochip());
-        System.out.println("verga" + officialRepository.countPetsWithMicrochip());
         List<Pet> pets = petRepository.findAll();
 
         int cont = 0;
         for (Pet pet : pets)
             for (Visit visit : pet.getVisits())
-                if (visit.getType().equalsIgnoreCase("Esterilización")) {
+                if (visit.getType().equalsIgnoreCase("EsterilizaciÃ³n")) {
                     cont++;
                     break;
                 }
@@ -132,11 +120,6 @@ public class OfficialService {
         return petsPOJO;
     }
 
-    /**
-     * Find all the cases by the type and save it
-     *
-     * @return return the cases
-     */
     public Cases findTotalCasesPerType() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -147,18 +130,12 @@ public class OfficialService {
 
         Cases cases = new Cases(petCaseList.size());
 
-        //According to the type of the case, save the case in one category
         for (String caseType : petCaseListSet)
             cases.getTotalCase().add(new CaseByType(caseType, Collections.frequency(petCaseList, caseType)));
 
         return cases;
     }
 
-    /**
-     * find and save all the visits by vet and visit type
-     *
-     * @return a classified visit
-     */
     public Visits findTotalVisitsByVetAndType() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -169,14 +146,12 @@ public class OfficialService {
 
         Visits visits = new Visits(vets.size());
 
-        //Save the visits by the vets
         for (Vet vet : vetsSet)
             visits.getVisitByVets().add(new VisitByVet(vet.getName(), Collections.frequency(vets, vet)));
 
         List<String> types = officialRepository.findAllVisitsType();
         Set<String> typesSet = new HashSet<>(types);
 
-        //Save the visits by the types
         for (String type : typesSet)
             visits.getVisitByType().add(new VisitByType(type, Collections.frequency(types, type)));
 
@@ -184,25 +159,11 @@ public class OfficialService {
 
     }
 
-    /**
-     * Select and list pets taking into account filtering for tables
-     *
-     * @param idF        filter id
-     * @param microchipF filter microchip
-     * @param nameF      filter name
-     * @param speciesF   filter specie
-     * @param raceF      filter race
-     * @param sizeF      filter size
-     * @param sexF       filter sex
-     * @return a list with the filtered pets
-     */
-
-    public List<PetPOJO> findPetsFiltered(String idF, String microchipF, String nameF, String speciesF, String raceF, String sizeF, String sexF) {
+    public List<PetBasicPOJO> findPetsFiltered(String idF, String microchipF, String nameF, String speciesF, String raceF, String sizeF, String sexF) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         officialRepository = new OfficialRepositoryImpl(entityManager);
 
-        //Query for filter the pets by the options
         String query = (idF == null ? "" : " AND p.pet_id = " + idF) +
                 (microchipF == null ? "" : " AND p.microchip = " + microchipF) +
                 (nameF == null ? "" : " AND p.name = '" + nameF + "'") +
@@ -214,12 +175,12 @@ public class OfficialService {
         if (!query.isEmpty()) {
             query = " WHERE " + query.replaceFirst(" AND", "");
         }
+        System.out.println(speciesF);
         List<Pet> pets = officialRepository.findPetsWithFilter(query);
-        List<PetPOJO> petPOJOList = new ArrayList<>();
+        List<PetBasicPOJO> petBasicPOJOList = new ArrayList<>();
 
-        //Save the filtered pets in a list
         for (Pet pet : pets) {
-            petPOJOList.add(new PetPOJO(
+            petBasicPOJOList.add(new PetBasicPOJO(
                     pet.getPet_id(),
                     pet.getMicrochip(),
                     pet.getName(),
@@ -227,11 +188,11 @@ public class OfficialService {
                     pet.getRace(),
                     pet.getSize(),
                     pet.getSex(),
-                    pet.getPicture(),
-                    pet.getOwner().getUsername()));
+                    "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/image/" + pet.getPicture())
+            );
         }
 
-        return petPOJOList;
+        return petBasicPOJOList;
     }
 
 
