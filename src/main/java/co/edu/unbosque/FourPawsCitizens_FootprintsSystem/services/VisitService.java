@@ -1,11 +1,9 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.PetCase;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Visit;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.*;
-import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitNamePOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 
 import javax.persistence.EntityManager;
@@ -17,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class VisitService {
-    private VisitRepository visitRepository;
     private PetRepository petRepository;
     private VetRepository vetRepository;
 
@@ -28,7 +25,6 @@ public class VisitService {
     public String saveVisit(VisitPOJO visitPOJO) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        visitRepository = new VisitRepositoryImpl(entityManager);
         petRepository = new PetRepositoryImpl(entityManager);
         vetRepository = new VetRepositoryImpl(entityManager);
 
@@ -134,72 +130,4 @@ public class VisitService {
         return true;
     }
 
-    /**
-     * Finds the list of visits in a range of dates for a pet in a descending way
-     *
-     * @param date1   first date range
-     * @param date2   second date range
-     * @param petName the name of the pet to find
-     * @return a list of visitPOJO
-     */
-    public List<VisitNamePOJO> findVisitsBetweenDatesByName(Date date1, Date date2, String petName) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        visitRepository = new VisitRepositoryImpl(entityManager);
-        List<Visit> visits;
-        if (date1.before(date2)) {
-            visits = visitRepository.findBetweenDatesByName(date1, date2);
-        } else {
-            visits = visitRepository.findBetweenDatesByName(date2, date1);
-        }
-        List<VisitNamePOJO> visitNamePOJOS = new ArrayList<>();
-
-        visits.forEach(v -> {
-            if (v.getPet().getName().equalsIgnoreCase(petName))
-                visitNamePOJOS.add(new VisitNamePOJO(v.getVisitId(),
-                        v.getPet().getName(),
-                        new SimpleDateFormat("dd/MM/yyyy").format(v.getCreatedAt()),
-                        v.getType(),
-                        v.getDescription(),
-                        v.getPet().getMicrochip(),
-                        v.getVet().getUsername(),
-                        v.getPet().getPet_id()));
-        });
-
-        return visitNamePOJOS;
-    }
-
-    /**
-     * Finds the list of visits in a range of dates for a pet in a descending way
-     *
-     * @param date1  first date range
-     * @param date2  second date range
-     * @param pet_id the pet id
-     * @return a list of visitPOJO
-     */
-    public List<VisitPOJO> findVisitsBetweenDatesByPet(Date date1, Date date2, Integer pet_id) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        visitRepository = new VisitRepositoryImpl(entityManager);
-        List<Visit> visits;
-        if (date1.before(date2)) {
-            visits = visitRepository.findBetweenDatesByName(date1, date2);
-        } else {
-            visits = visitRepository.findBetweenDatesByName(date2, date1);
-        }
-        List<VisitPOJO> visitPOJOS = new ArrayList<>();
-
-        visits.forEach(v -> {
-            if (v.getPet().getPet_id().equals(pet_id))
-                visitPOJOS.add(new VisitPOJO(v.getVisitId(),
-                        new SimpleDateFormat("dd/MM/yyyy").format(v.getCreatedAt()),
-                        v.getType(),
-                        v.getDescription(),
-                        v.getPet().getMicrochip(),
-                        v.getVet().getUsername(),
-                        v.getPet().getPet_id()));
-        });
-
-        return visitPOJOS;
-    }
 }
