@@ -89,8 +89,21 @@ public class VisitResource {
             return Response.status(Response.Status.OK).entity("El formato de fecha es incorrecto!").build();
         }
         List<VisitNamePOJO> visitNamePOJOS = new VisitService().
-                findVisitsBetweenDatesByName(initDate, fDate, petName,username);
+                findVisitsBetweenDatesByName(initDate, fDate, petName, username);
 
+        return Response.
+                ok().
+                entity(visitNamePOJOS)
+                .build();
+    }
+
+    @GET
+    @Path("/All")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listAllVisits(
+            @PathParam("username") String username) {
+
+        List<VisitNamePOJO> visitNamePOJOS = new VisitService().listVisitsAll(username);
         return Response.
                 ok().
                 entity(visitNamePOJOS)

@@ -131,6 +131,7 @@ public class VisitService {
 
         return true;
     }
+
     /**
      * Finds the list of visits in a range of dates for a pet in a descending way
      *
@@ -156,7 +157,7 @@ public class VisitService {
         }
         List<VisitNamePOJO> visitNamePOJOS = new ArrayList<>();
         visits.forEach(v -> {
-            if (v.getPet().getName().equals(petName)&&v.getVet().getUsername().equals(username)&&v.getPet().getName()!=null)
+            if (v.getPet().getName().equals(petName) && v.getVet().getUsername().equals(username) && v.getPet().getName() != null)
                 visitNamePOJOS.add(new VisitNamePOJO(v.getVisitId(),
                         v.getPet().getName(),
                         new SimpleDateFormat("dd/MM/yyyy").format(v.getCreatedAt()),
@@ -168,5 +169,35 @@ public class VisitService {
         });
 
         return visitNamePOJOS;
+    }
+
+    public List<VisitNamePOJO> listVisitsAll(String vet_username) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        visitRepository = new VisitRepositoryImpl(entityManager);
+        vetRepository = new VetRepositoryImpl(entityManager);
+
+        List<Visit> allVisits = visitRepository.findAll();
+
+        List<VisitNamePOJO> visitsName = new ArrayList<VisitNamePOJO>();
+
+        // Creating an optional vet object and find the id of the vet in the visit's pojo
+        Optional<Vet> vet = vetRepository.findById(vet_username);
+
+        //If the id doesn't exist return false
+        if (!vet.isPresent()) return null;
+
+        allVisits.forEach(v -> {
+            if (v.getVet().getUsername().equals(vet_username))
+                visitsName.add(new VisitNamePOJO(v.getVisitId(),
+                        v.getPet().getName(),
+                        new SimpleDateFormat("dd/MM/yyyy").format(v.getCreatedAt()),
+                        v.getType(),
+                        v.getDescription(),
+                        v.getPet().getMicrochip(),
+                        v.getVet().getUsername(),
+                        v.getPet().getPet_id()));
+        });
+        return visitsName;
     }
 }
