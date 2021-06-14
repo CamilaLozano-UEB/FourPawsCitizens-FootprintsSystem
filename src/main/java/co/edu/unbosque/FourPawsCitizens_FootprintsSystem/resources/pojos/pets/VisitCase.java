@@ -1,9 +1,11 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets;
 
 
+import java.util.Date;
+
 public class VisitCase {
 
-    private String createdAt;
+    private Date createdAt;
     private String caseOrVisit;
     private Integer idCaseVisit;
     private String petName;
@@ -20,7 +22,7 @@ public class VisitCase {
      * @param description the description of the visit or case
      * @param vetName     the vet name if is a visit
      */
-    public VisitCase(String createdAt, String caseOrVisit, Integer idCaseVisit, String petName, String type, String description, String vetName) {
+    public VisitCase(Date createdAt, String caseOrVisit, Integer idCaseVisit, String petName, String type, String description, String vetName) {
         this.createdAt = createdAt;
         this.caseOrVisit = caseOrVisit;
         this.idCaseVisit = idCaseVisit;
@@ -36,14 +38,14 @@ public class VisitCase {
     /**
      * @return the date of creation
      */
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
     /**
      * @param createdAt the new date of creation
      */
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

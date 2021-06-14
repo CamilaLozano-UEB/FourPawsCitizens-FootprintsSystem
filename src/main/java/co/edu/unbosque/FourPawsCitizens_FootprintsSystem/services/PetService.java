@@ -11,7 +11,6 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.Vi
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -110,7 +109,7 @@ public class PetService {
 
         for (Visit visit : visits) {
             visitCaseList.add(new VisitCase(
-                    new SimpleDateFormat("dd/MM/yyyy").format(visit.getCreatedAt()),
+                    visit.getCreatedAt(),
                     "Visita",
                     visit.getVisitId(),
                     visit.getPet().getName(),
@@ -127,7 +126,7 @@ public class PetService {
         }
         for (PetCase petCase : cases) {
             visitCaseList.add(new VisitCase(
-                    new SimpleDateFormat("dd/MM/yyyy").format(petCase.getCreatedAt()),
+                    petCase.getCreatedAt(),
                     "Caso",
                     petCase.getCaseId(),
                     petCase.getPet().getName(),
@@ -136,7 +135,14 @@ public class PetService {
                     ""));
         }
 
-        return visitCaseList.stream().sorted(Comparator.comparing(VisitCase::getCreatedAt, reverseOrder())).collect(Collectors.toList());
+        Collections.sort(visitCaseList, new Comparator<VisitCase>() {
+            public int compare(VisitCase o1, VisitCase o2) {
+                if (o1.getCreatedAt() == null || o2.getCreatedAt() == null)
+                    return 0;
+                return o2.getCreatedAt().compareTo(o1.getCreatedAt());
+            }
+        });
+        return visitCaseList;
     }
 
 }
