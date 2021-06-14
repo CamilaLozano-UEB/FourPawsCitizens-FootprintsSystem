@@ -50,7 +50,6 @@ public class UploadResource {
 
                 // Handling the body of the part with an InputStream
                 InputStream istream = inputPart.getBody(InputStream.class, null);
-                System.out.println(fileName.substring(fileName.lastIndexOf(".")).toUpperCase());
                if(fileName.equals("unknown") ) {
                    return Response.status(200).entity("unknown").build();
 
