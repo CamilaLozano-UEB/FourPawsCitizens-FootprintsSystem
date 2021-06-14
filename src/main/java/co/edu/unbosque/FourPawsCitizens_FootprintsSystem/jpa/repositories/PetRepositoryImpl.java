@@ -4,8 +4,6 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 import java.util.Optional;
 

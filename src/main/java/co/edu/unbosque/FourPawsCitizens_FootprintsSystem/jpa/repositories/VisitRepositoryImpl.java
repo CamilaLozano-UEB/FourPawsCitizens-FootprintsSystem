@@ -3,8 +3,6 @@ package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Visit;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,6 +58,7 @@ public class VisitRepositoryImpl implements VisitRepository {
                 setParameter("petId", petId).
                 getResultList();
     }
+
     /**
      * Finds the list of visits in a range of dates for a pet name in a descending way
      *

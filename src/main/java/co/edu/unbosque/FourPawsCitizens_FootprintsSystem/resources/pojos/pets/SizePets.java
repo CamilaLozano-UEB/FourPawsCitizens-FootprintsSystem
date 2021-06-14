@@ -8,8 +8,7 @@ public class SizePets {
     }
 
     /**
-     *
-     * @param size pet size type
+     * @param size  pet size type
      * @param total amount of type entered
      */
     public SizePets(String size, Integer total) {
@@ -18,7 +17,6 @@ public class SizePets {
     }
 
     /**
-     *
      * @return pet size type
      */
     public String getSize() {
@@ -26,7 +24,6 @@ public class SizePets {
     }
 
     /**
-     *
      * @param size pet size type
      */
     public void setSize(String size) {
@@ -34,7 +31,6 @@ public class SizePets {
     }
 
     /**
-     *
      * @return amount of type entered
      */
     public Integer getTotal() {
@@ -42,7 +38,6 @@ public class SizePets {
     }
 
     /**
-     *
      * @param total amount of type entered
      */
     public void setTotal(Integer total) {

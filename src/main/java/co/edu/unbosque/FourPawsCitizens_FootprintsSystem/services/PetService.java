@@ -12,9 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import static java.util.Collections.reverseOrder;
 
 public class PetService {
 
@@ -92,6 +89,14 @@ public class PetService {
         return message;
     }
 
+    /**
+     * List visits and cases in an specific range of date
+     *
+     * @param petId pet's id
+     * @param init  first date
+     * @param fin   last date
+     * @return filtered list with cases an visits
+     */
     public List<VisitCase> listVisitsAndCasesOnDateRange(Integer petId, Date init, Date fin) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -101,12 +106,14 @@ public class PetService {
 
         List<VisitCase> visitCaseList = new ArrayList<>();
         List<Visit> visits;
+        //validate first date it's before last date in the visit
         if (init.before(fin)) {
             visits = visitRepository.findBetweenDatesByPetId(init, fin, petId);
         } else {
             visits = visitRepository.findBetweenDatesByPetId(fin, init, petId);
         }
 
+        //Adding the visits to the list
         for (Visit visit : visits) {
             visitCaseList.add(new VisitCase(
                     visit.getCreatedAt(),
@@ -119,11 +126,14 @@ public class PetService {
         }
         List<PetCase> cases;
 
+        //validate first date it's before last date in the cases
         if (init.before(fin)) {
             cases = caseRepository.findBetweenDates(init, fin, petId);
         } else {
             cases = caseRepository.findBetweenDates(fin, init, petId);
         }
+
+        //Adding the cases to the list
         for (PetCase petCase : cases) {
             visitCaseList.add(new VisitCase(
                     petCase.getCreatedAt(),
@@ -135,6 +145,7 @@ public class PetService {
                     ""));
         }
 
+        //organize the dates in Descending order
         Collections.sort(visitCaseList, new Comparator<VisitCase>() {
             public int compare(VisitCase o1, VisitCase o2) {
                 if (o1.getCreatedAt() == null || o2.getCreatedAt() == null)
@@ -144,6 +155,13 @@ public class PetService {
         });
         return visitCaseList;
     }
+
+    /**
+     * List the visits and cases without ranges
+     *
+     * @param petId
+     * @return
+     */
     public List<VisitCase> listVisitsAndCaseAll(Integer petId) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -152,35 +170,38 @@ public class PetService {
         caseRepository = new CaseRepositoryImpl(entityManager);
 
         List<VisitCase> visitCaseList = new ArrayList<>();
-        List<Visit> visits= visitRepository.findAll();
+        List<Visit> visits = visitRepository.findAll();
 
+        //Save the visits in a visitCase List
         for (Visit visit : visits) {
-            if(visit.getPet().getPet_id().equals(petId))
+            if (visit.getPet().getPet_id().equals(petId))
                 visitCaseList.add(new VisitCase(
-                    visit.getCreatedAt(),
-                    "Visita",
-                    visit.getVisitId(),
-                    visit.getPet().getName(),
-                    visit.getType(),
-                    visit.getDescription(),
-                    visit.getVet().getName()));
+                        visit.getCreatedAt(),
+                        "Visita",
+                        visit.getVisitId(),
+                        visit.getPet().getName(),
+                        visit.getType(),
+                        visit.getDescription(),
+                        visit.getVet().getName()));
 
         }
-        List<PetCase> cases= caseRepository.findAll();
+        List<PetCase> cases = caseRepository.findAll();
 
+        //Save the cases in a visitCase List
         for (PetCase petCase : cases) {
-            if(petCase.getPet().getPet_id().equals(petId))
+            if (petCase.getPet().getPet_id().equals(petId))
                 visitCaseList.add(new VisitCase(
-                    petCase.getCreatedAt(),
-                    "Caso",
-                    petCase.getCaseId(),
-                    petCase.getPet().getName(),
-                    petCase.getType(),
-                    petCase.getDescription(),
-                    ""));
+                        petCase.getCreatedAt(),
+                        "Caso",
+                        petCase.getCaseId(),
+                        petCase.getPet().getName(),
+                        petCase.getType(),
+                        petCase.getDescription(),
+                        ""));
 
         }
 
+        //organize the dates in Descending order
         Collections.sort(visitCaseList, new Comparator<VisitCase>() {
             public int compare(VisitCase o1, VisitCase o2) {
                 if (o1.getCreatedAt() == null || o2.getCreatedAt() == null)

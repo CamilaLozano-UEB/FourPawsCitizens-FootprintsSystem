@@ -171,6 +171,12 @@ public class VisitService {
         return visitNamePOJOS;
     }
 
+    /**
+     * Create a list with all the visits of vet and add ir to a list with the visits of pets
+     *
+     * @param vet_username vet's username
+     * @return list with visits of vet
+     */
     public List<VisitNamePOJO> listVisitsAll(String vet_username) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();

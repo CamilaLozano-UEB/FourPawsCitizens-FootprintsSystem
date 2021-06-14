@@ -38,8 +38,8 @@ public class Owner extends UserApp {
 
     /**
      * @param username,     the owner's username
-     * @param password the owner's password
-     *@param email    the owner's email
+     * @param password      the owner's password
+     * @param email         the owner's email
      * @param person_id,    the owner's person id
      * @param name,         the owner's name
      * @param address,      the owner's address

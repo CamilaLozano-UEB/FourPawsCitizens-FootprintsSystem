@@ -22,6 +22,7 @@ public class SecutiryFilter implements ContainerRequestFilter {
 
     /**
      * Authenticate the user from the search for the role to allow him to enter the platform
+     *
      * @param requestContext, get the input data from the header
      * @throws IOException exception
      */

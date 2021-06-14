@@ -8,8 +8,7 @@ public class RacePets {
     }
 
     /**
-     *
-     * @param race pet race type
+     * @param race  pet race type
      * @param total amount of type entered
      */
     public RacePets(String race, Integer total) {
@@ -18,7 +17,6 @@ public class RacePets {
     }
 
     /**
-     *
      * @return pet race type
      */
     public String getRace() {
@@ -26,7 +24,6 @@ public class RacePets {
     }
 
     /**
-     *
      * @param race pet race type
      */
     public void setRace(String race) {
@@ -34,7 +31,6 @@ public class RacePets {
     }
 
     /**
-     *
      * @return amount of type entered
      */
     public Integer getTotal() {
@@ -42,7 +38,6 @@ public class RacePets {
     }
 
     /**
-     *
      * @param total amount of type entered
      */
     public void setTotal(Integer total) {

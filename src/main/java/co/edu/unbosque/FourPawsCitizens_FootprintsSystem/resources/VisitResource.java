@@ -97,6 +97,12 @@ public class VisitResource {
                 .build();
     }
 
+    /**
+     * bring a list with all the visits of vet without filters
+     *
+     * @param username vet's username
+     * @return response entity
+     */
     @GET
     @Path("/All")
     @Produces(MediaType.APPLICATION_JSON)

@@ -10,7 +10,8 @@ import java.io.IOException;
 public class CorsFilter implements ContainerResponseFilter {
     /**
      * Filter that controls the access of the Access-Control-Allow-Origin
-     * @param requestContext get the access request
+     *
+     * @param requestContext  get the access request
      * @param responseContext send the access response
      * @throws IOException exception
      */

@@ -50,6 +50,14 @@ public class PetsResource {
         return Response.status(Response.Status.OK).entity(message).build();
     }
 
+    /**
+     * This Method bring a list of visits and cases filtered with date
+     *
+     * @param initialDate first date
+     * @param finalDate   last date
+     * @param pet_id      pet'id
+     * @return response status
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{pet_id}/visitsCases")
@@ -70,6 +78,13 @@ public class PetsResource {
                 entity(new PetService().listVisitsAndCasesOnDateRange(pet_id, initDate, fDate)).
                 build();
     }
+
+    /**
+     * bring a list with all the visits and cases without filters
+     *
+     * @param pet_id pet's id
+     * @return response status
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{pet_id}/visitsCasesAll")
