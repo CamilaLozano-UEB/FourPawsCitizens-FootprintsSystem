@@ -42,7 +42,7 @@ public class VisitResource {
             if (new VisitService().verifyMicrochipVisit(visitPOJO)) {
 
                 message = new VisitService().saveVisit(visitPOJO);
-                new PetService().modifyPet(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
+                new PetService().modify(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
             } else {
                 message = "Los datos ingresados son erroneos";
             }

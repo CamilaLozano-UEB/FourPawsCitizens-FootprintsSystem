@@ -2,8 +2,11 @@ package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services;
 
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Owner;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.OwnerRepository;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.OwnerRepositoryImpl;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepository;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.PetRepositoryImpl;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.OwnerPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
 
@@ -73,23 +76,31 @@ public class OwnerService {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         ownerRepository = new OwnerRepositoryImpl(entityManager);
+        PetRepository petRepository = new PetRepositoryImpl(entityManager);
         //Create a owner optional object
         Optional<Owner> owner = ownerRepository.findById(username);
+
+        List<Pet> pet =petRepository.findAll();
         List<PetPOJO> petPOJOList = new ArrayList<>();
         //If the owner exist, list the pets of this owner
-        owner.ifPresent(o ->
-                o.getPets().forEach(petEntity ->
-                        petPOJOList.add(new PetPOJO(
-                                petEntity.getPet_id(),
-                                petEntity.getMicrochip(),
-                                petEntity.getName(),
-                                petEntity.getSpecies(),
-                                petEntity.getRace(),
-                                petEntity.getSize(),
-                                petEntity.getSex(),
-                                serverPath + petEntity.getPicture(),
-                                o.getUsername()
-                        ))));
+        for (int i = 0; i < pet.size(); i++) {
+            System.out.println("Espera");
+            if(pet.get(i).getOwner().getUsername().equals(username)){
+                System.out.println("Entra");
+                petPOJOList.add(new PetPOJO(
+                        pet.get(i).getPet_id(),
+                        pet.get(i).getMicrochip(),
+                        pet.get(i).getName(),
+                        pet.get(i).getSpecies(),
+                        pet.get(i).getRace(),
+                        pet.get(i).getSize(),
+                        pet.get(i).getSex(),
+                        serverPath + pet.get(i).getPicture(),
+                        username
+                ));
+            }
+        }
+
         return petPOJOList;
     }
 

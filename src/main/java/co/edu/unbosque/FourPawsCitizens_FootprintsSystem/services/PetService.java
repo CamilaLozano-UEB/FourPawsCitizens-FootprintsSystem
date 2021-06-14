@@ -88,6 +88,33 @@ public class PetService {
         entityManagerFactory.close();
         return message;
     }
+    /**
+     * Method that modify the microchip the data of a petPojo
+     *
+     * @param petPOJO pet's pojo
+     * @return string message
+     */
+    public String modify(PetPOJO petPOJO) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        petRepository = new PetRepositoryImpl(entityManager);
+
+        List<Pet> petList = petRepository.findAll();
+        //If the owner with the id exist, scroll through the pet list to verify that the microchip does not exist
+        for (int i = 0; i < petList.size(); i++) {
+            if (petList.get(i).getMicrochip() != null && petList.get(i).getMicrochip().equals(petPOJO.getMicrochip())
+                    && !petPOJO.getPet_id().equals(petList.get(i).getPet_id()) && petList.get(i).getMicrochip() != 0
+                    && petPOJO.getMicrochip() != 0) {
+                return "El microchip ingresado ya existe ";
+            }
+
+        }
+        String message = petRepository.modifyForVisit(petPOJO);
+
+        entityManager.close();
+        entityManagerFactory.close();
+        return message;
+    }
 
     /**
      * List visits and cases in an specific range of date

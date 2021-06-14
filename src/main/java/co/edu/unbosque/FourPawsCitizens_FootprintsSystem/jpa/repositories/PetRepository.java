@@ -30,7 +30,13 @@ public interface PetRepository {
      * @return a result message
      */
     String modify(PetPOJO petPOJO);
-
+    /**
+     * Modify the microchip of an specific pet
+     *
+     * @param petPOJO the pet with the new data
+     * @return a result message
+     */
+    String modifyForVisit(PetPOJO petPOJO);
     /**
      * Finds a pet by id on the db
      *

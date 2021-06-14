@@ -67,6 +67,24 @@ public class PetRepositoryImpl implements PetRepository {
 
         return "Se ha modificado exitosamente!";
     }
+    /**
+     * Modify the attributes of an specific pet
+     *
+     * @param petPOJO the pet with the new data
+     * @return a result message
+     */
+    @Override
+    public String modifyForVisit(PetPOJO petPOJO) {
+        entityManager.getTransaction().begin();
+
+        Optional<Pet> pet = this.findById(petPOJO.getPet_id());
+        if (!pet.isPresent()) return "No existe la mascota con el id ingresado!";
+
+        pet.get().setMicrochip(petPOJO.getMicrochip());
+        entityManager.getTransaction().commit();
+
+        return "Se ha modificado exitosamente!";
+    }
 
     /**
      * Finds a pet by id on the db
