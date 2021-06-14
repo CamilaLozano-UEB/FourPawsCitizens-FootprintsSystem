@@ -69,7 +69,7 @@ public class OwnerService {
      * @param username owner's username
      * @return List of pet's Pojo
      */
-    public List<PetPOJO> listPets(String username) {
+    public List<PetPOJO> listPets(String username, String serverPath) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         ownerRepository = new OwnerRepositoryImpl(entityManager);
@@ -87,7 +87,7 @@ public class OwnerService {
                                 petEntity.getRace(),
                                 petEntity.getSize(),
                                 petEntity.getSex(),
-                                petEntity.getPicture(),
+                                serverPath + petEntity.getPicture(),
                                 o.getUsername()
                         ))));
         return petPOJOList;
