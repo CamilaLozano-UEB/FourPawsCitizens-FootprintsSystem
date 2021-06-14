@@ -144,5 +144,50 @@ public class PetService {
         });
         return visitCaseList;
     }
+    public List<VisitCase> listVisitsAndCaseAll(Integer petId) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        petRepository = new PetRepositoryImpl(entityManager);
+        visitRepository = new VisitRepositoryImpl(entityManager);
+        caseRepository = new CaseRepositoryImpl(entityManager);
 
+        List<VisitCase> visitCaseList = new ArrayList<>();
+        List<Visit> visits= visitRepository.findAll();
+
+        for (Visit visit : visits) {
+            if(visit.getPet().getPet_id().equals(petId))
+                visitCaseList.add(new VisitCase(
+                    visit.getCreatedAt(),
+                    "Visita",
+                    visit.getVisitId(),
+                    visit.getPet().getName(),
+                    visit.getType(),
+                    visit.getDescription(),
+                    visit.getVet().getName()));
+
+        }
+        List<PetCase> cases= caseRepository.findAll();
+
+        for (PetCase petCase : cases) {
+            if(petCase.getPet().getPet_id().equals(petId))
+                visitCaseList.add(new VisitCase(
+                    petCase.getCreatedAt(),
+                    "Caso",
+                    petCase.getCaseId(),
+                    petCase.getPet().getName(),
+                    petCase.getType(),
+                    petCase.getDescription(),
+                    ""));
+
+        }
+
+        Collections.sort(visitCaseList, new Comparator<VisitCase>() {
+            public int compare(VisitCase o1, VisitCase o2) {
+                if (o1.getCreatedAt() == null || o2.getCreatedAt() == null)
+                    return 0;
+                return o2.getCreatedAt().compareTo(o1.getCreatedAt());
+            }
+        });
+        return visitCaseList;
+    }
 }

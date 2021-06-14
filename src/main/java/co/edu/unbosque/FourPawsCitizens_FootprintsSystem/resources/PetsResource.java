@@ -70,5 +70,15 @@ public class PetsResource {
                 entity(new PetService().listVisitsAndCasesOnDateRange(pet_id, initDate, fDate)).
                 build();
     }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{pet_id}/visitsCasesAll")
+    public Response listVisitsCasesAll(@PathParam("pet_id") Integer pet_id) {
+
+        return Response.
+                status(Response.Status.OK).
+                entity(new PetService().listVisitsAndCaseAll(pet_id)).
+                build();
+    }
 
 }
