@@ -4,6 +4,7 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Visit;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories.*;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitNamePOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitPOJO;
 
 import javax.persistence.EntityManager;
@@ -17,6 +18,7 @@ import java.util.*;
 public class VisitService {
     private PetRepository petRepository;
     private VetRepository vetRepository;
+    private VisitRepository visitRepository;
 
     /**
      * @param visitPOJO visit's pojo
@@ -129,5 +131,42 @@ public class VisitService {
 
         return true;
     }
+    /**
+     * Finds the list of visits in a range of dates for a pet in a descending way
+     *
+     * @param date1   first date range
+     * @param date2   second date range
+     * @param petName the name of the pet to find
+     * @return a list of visitPOJO
+     */
+    public List<VisitNamePOJO> findVisitsBetweenDatesByName(Date date1, Date date2, String petName, String username) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        visitRepository = new VisitRepositoryImpl(entityManager);
+        vetRepository = new VetRepositoryImpl(entityManager);
 
+        Optional<Vet> vet = vetRepository.findById(username);
+        if (!vet.isPresent()) return null;
+
+        List<Visit> visits;
+        if (date1.before(date2)) {
+            visits = visitRepository.findBetweenDatesByName(date1, date2);
+        } else {
+            visits = visitRepository.findBetweenDatesByName(date2, date1);
+        }
+        List<VisitNamePOJO> visitNamePOJOS = new ArrayList<>();
+        visits.forEach(v -> {
+            if (v.getPet().getName().equals(petName)&&v.getVet().getUsername().equals(username)&&v.getPet().getName()!=null)
+                visitNamePOJOS.add(new VisitNamePOJO(v.getVisitId(),
+                        v.getPet().getName(),
+                        new SimpleDateFormat("dd/MM/yyyy").format(v.getCreatedAt()),
+                        v.getType(),
+                        v.getDescription(),
+                        v.getPet().getMicrochip(),
+                        v.getVet().getUsername(),
+                        v.getPet().getPet_id()));
+        });
+
+        return visitNamePOJOS;
+    }
 }

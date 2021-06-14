@@ -60,4 +60,18 @@ public class VisitRepositoryImpl implements VisitRepository {
                 setParameter("petId", petId).
                 getResultList();
     }
+    /**
+     * Finds the list of visits in a range of dates for a pet name in a descending way
+     *
+     * @param date1 first date range
+     * @param date2 second date range
+     * @return a list of visits
+     */
+    public List<Visit> findBetweenDatesByName(Date date1, Date date2) {
+        return entityManager.
+                createQuery("SELECT v FROM Visit v WHERE v.createdAt BETWEEN : date1 AND : date2 order by v.createdAt DESC").
+                setParameter("date1", date1).
+                setParameter("date2", date2).
+                getResultList();
+    }
 }

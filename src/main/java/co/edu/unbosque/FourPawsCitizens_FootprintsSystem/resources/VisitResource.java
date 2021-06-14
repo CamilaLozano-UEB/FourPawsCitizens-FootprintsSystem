@@ -77,7 +77,8 @@ public class VisitResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response listPetsByDatesAndName(@QueryParam("initialDate") String initialDate,
                                            @QueryParam("finalDate") String finalDate,
-                                           @QueryParam("petName") String petName) {
+                                           @QueryParam("petName") String petName,
+                                           @PathParam("username") String username) {
         Date initDate, fDate;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -88,7 +89,7 @@ public class VisitResource {
             return Response.status(Response.Status.OK).entity("El formato de fecha es incorrecto!").build();
         }
         List<VisitNamePOJO> visitNamePOJOS = new VisitService().
-                findVisitsBetweenDatesByName(initDate, fDate, petName);
+                findVisitsBetweenDatesByName(initDate, fDate, petName,username);
 
         return Response.
                 ok().
