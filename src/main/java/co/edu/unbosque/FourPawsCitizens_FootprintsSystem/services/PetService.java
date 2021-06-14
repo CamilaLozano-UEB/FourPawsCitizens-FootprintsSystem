@@ -11,7 +11,11 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.Vi
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.Collections.reverseOrder;
 
 public class PetService {
 
@@ -35,7 +39,7 @@ public class PetService {
         Optional<Owner> owner = ownerRepository.findById(petPOJO.getOwner_username());
 
         //If the owner with the id doesn't exists return a message
-        if (!owner.isPresent()) return "El username del dueño ingresado no existe!";
+        if (!owner.isPresent()) return "El username del dueÃ±o ingresado no existe!";
 
         List<Pet> petList = petRepository.findAll();
         //If the owner with the id exist, scroll through the pet list to verify that the microchip does not exist
@@ -106,7 +110,7 @@ public class PetService {
 
         for (Visit visit : visits) {
             visitCaseList.add(new VisitCase(
-                    visit.getCreatedAt(),
+                    new SimpleDateFormat("dd/MM/yyyy").format(visit.getCreatedAt()),
                     "Visita",
                     visit.getVisitId(),
                     visit.getPet().getName(),
@@ -123,7 +127,7 @@ public class PetService {
         }
         for (PetCase petCase : cases) {
             visitCaseList.add(new VisitCase(
-                    petCase.getCreatedAt(),
+                    new SimpleDateFormat("dd/MM/yyyy").format(petCase.getCreatedAt()),
                     "Caso",
                     petCase.getCaseId(),
                     petCase.getPet().getName(),
@@ -132,13 +136,7 @@ public class PetService {
                     ""));
         }
 
-        visitCaseList.sort((o1, o2) -> {
-            if (o1.getCreatedAt() == null || o2.getCreatedAt() == null)
-                return 0;
-            return o1.getCreatedAt().compareTo(o2.getCreatedAt());
-        });
-
-
-        return visitCaseList;
+        return visitCaseList.stream().sorted(Comparator.comparing(VisitCase::getCreatedAt, reverseOrder())).collect(Collectors.toList());
     }
+
 }
