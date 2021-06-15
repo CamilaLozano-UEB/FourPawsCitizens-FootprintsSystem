@@ -18,13 +18,11 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.V
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.VisitByVet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.visit.Visits;
 
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.*;
 
-@Stateless
 public class OfficialService {
     private OfficialRepository officialRepository;
     private PetRepository petRepository;
