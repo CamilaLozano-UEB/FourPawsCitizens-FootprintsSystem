@@ -26,7 +26,7 @@ public class OwnerResource {
         return Response
                 .ok()
                 .entity(new OwnerService().
-                        listPets(username, "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/image/"))
+                        listPets(username, "http://35.206.97.221:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/image/"))
                 .build();
     }
 

@@ -223,7 +223,7 @@ public class OfficialService {
                     pet.getRace(),
                     pet.getSize(),
                     pet.getSex(),
-                    "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/image/" + pet.getPicture())
+                    "http://35.206.97.221:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/image/" + pet.getPicture())
             );
         }
 
