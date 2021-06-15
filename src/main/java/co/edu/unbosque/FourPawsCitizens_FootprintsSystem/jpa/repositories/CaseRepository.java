@@ -25,8 +25,8 @@ public interface CaseRepository {
     /**
      * Find the cases of a pet in a range of dates
      *
-     * @param date1 first date range
-     * @param date2 second date range
+     * @param date1  first date range
+     * @param date2  second date range
      * @param pet_id the pet id
      * @return a list of cases
      */

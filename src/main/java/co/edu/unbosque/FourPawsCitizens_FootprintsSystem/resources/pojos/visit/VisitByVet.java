@@ -5,8 +5,8 @@ public class VisitByVet {
     private Integer total;
 
     /**
-     * @param vetUsername   the visit vet
-     * @param total the visit total of that vet
+     * @param vetUsername the visit vet
+     * @param total       the visit total of that vet
      */
     public VisitByVet(String vetUsername, Integer total) {
         this.vetUsername = vetUsername;

@@ -39,14 +39,24 @@ public class VisitResource {
                     .build();
 
         } else if (visitPOJO.getType().equalsIgnoreCase("implantación de microchip") && visitPOJO.getMicrochip() != null) {
-            if (new VisitService().verificateVisit(visitPOJO)) {
+            if (new VisitService().verifyMicrochipVisit(visitPOJO)) {
 
                 message = new VisitService().saveVisit(visitPOJO);
-                new PetService().modifyPet(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
+                new PetService().modify(new PetPOJO(visitPOJO.getPet_id(), visitPOJO.getMicrochip()));
             } else {
                 message = "Los datos ingresados son erroneos";
             }
             return Response.status(Response.Status.CREATED).entity(message).build();
+        } else if (visitPOJO.getType().equals("Esterilización")) {
+
+            if (new VisitService().verifySterilizationVisit(visitPOJO)) {
+                message = new VisitService().saveVisit(visitPOJO);
+            } else {
+                message = "Los datos ingresados son erroneos";
+            }
+            return Response.status(Response.Status.CREATED)
+                    .entity(message)
+                    .build();
         } else {
             message = new VisitService().saveVisit(visitPOJO);
             return Response.status(Response.Status.CREATED)
@@ -59,15 +69,16 @@ public class VisitResource {
      * Find the visits of a pet in a range of dates and a name of the pet in a descending way
      *
      * @param initialDate first date range
-     * @param finalDate second date range
-     * @param petName the name of the pet
-     * @return  a response status
+     * @param finalDate   second date range
+     * @param petName     the name of the pet
+     * @return a response status
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listPetsByDatesAndName(@QueryParam("initialDate") String initialDate,
                                            @QueryParam("finalDate") String finalDate,
-                                           @QueryParam("petName") String petName) {
+                                           @QueryParam("petName") String petName,
+                                           @PathParam("username") String username) {
         Date initDate, fDate;
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -78,8 +89,27 @@ public class VisitResource {
             return Response.status(Response.Status.OK).entity("El formato de fecha es incorrecto!").build();
         }
         List<VisitNamePOJO> visitNamePOJOS = new VisitService().
-                findVisitsBetweenDatesByName(initDate, fDate, petName);
+                findVisitsBetweenDatesByName(initDate, fDate, petName, username);
 
+        return Response.
+                ok().
+                entity(visitNamePOJOS)
+                .build();
+    }
+
+    /**
+     * bring a list with all the visits of vet without filters
+     *
+     * @param username vet's username
+     * @return response entity
+     */
+    @GET
+    @Path("/All")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listAllVisits(
+            @PathParam("username") String username) {
+
+        List<VisitNamePOJO> visitNamePOJOS = new VisitService().listVisitsAll(username);
         return Response.
                 ok().
                 entity(visitNamePOJOS)

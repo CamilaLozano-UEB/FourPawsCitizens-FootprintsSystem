@@ -3,7 +3,9 @@ package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.owner.OwnerPOJO;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.services.OwnerService;
 
+import javax.servlet.ServletContext;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -19,10 +21,12 @@ public class OwnerResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listPets(@PathParam("username") String username) {
+    public Response listPets(@PathParam("username") String username, @Context ServletContext servletContext) {
+
         return Response
                 .ok()
-                .entity(new OwnerService().listPets(username))
+                .entity(new OwnerService().
+                        listPets(username, "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/image/"))
                 .build();
     }
 

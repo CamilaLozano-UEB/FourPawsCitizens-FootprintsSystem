@@ -35,8 +35,8 @@ public class Vet extends UserApp {
 
     /**
      * @param username,     the owner's username
-     * @param password  the owner´s password
-     * @param email    the owner´s email
+     * @param password      the owner´s password
+     * @param email         the owner´s email
      * @param name,         the owner's name
      * @param address,      the owner's address
      * @param neighborhood, the owner's neighborhood

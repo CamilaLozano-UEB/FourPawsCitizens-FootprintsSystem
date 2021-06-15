@@ -1,6 +1,7 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Official;
+import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Vet;
 
 import java.util.List;
@@ -68,5 +69,9 @@ public interface OfficialRepository {
      */
     List<String> findAllVisitsType();
 
-
+    /**
+     * @param queryParts the query´s to make the filter
+     * @return a list of Pet with the specific information
+     */
+    List<Pet> findPetsWithFilter(String queryParts);
 }

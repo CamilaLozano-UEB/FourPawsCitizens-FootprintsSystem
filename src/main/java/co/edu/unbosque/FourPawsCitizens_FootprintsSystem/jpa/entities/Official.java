@@ -1,8 +1,6 @@
 package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Annotations to configure the entity, give a name and define the named queries

@@ -22,7 +22,7 @@ public class UserAppService {
      * @param password the user app's password
      * @return the Optional role
      */
-    public Optional<String> validateUser( String username, String password ) {
+    public Optional<String> validateUser(String username, String password) {
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("FootprintsSystemDS");
         EntityManager entityManager = entityManagerFactory.createEntityManager();

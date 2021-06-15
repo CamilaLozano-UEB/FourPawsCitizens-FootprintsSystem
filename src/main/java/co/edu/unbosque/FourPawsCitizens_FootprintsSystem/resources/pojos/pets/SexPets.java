@@ -5,8 +5,7 @@ public class SexPets {
     private Integer total;
 
     /**
-     *
-     * @param sex pet's sex type
+     * @param sex   pet's sex type
      * @param total amount of type entered
      */
     public SexPets(String sex, Integer total) {
@@ -18,7 +17,6 @@ public class SexPets {
     }
 
     /**
-     *
      * @return pet's sex type
      */
     public String getSex() {
@@ -26,7 +24,6 @@ public class SexPets {
     }
 
     /**
-     *
      * @param sex pet's sex type
      */
     public void setSex(String sex) {
@@ -34,7 +31,6 @@ public class SexPets {
     }
 
     /**
-     *
      * @return amount of type entered
      */
     public Integer getTotal() {
@@ -42,7 +38,6 @@ public class SexPets {
     }
 
     /**
-     *
      * @param total amount of type entered
      */
     public void setTotal(Integer total) {

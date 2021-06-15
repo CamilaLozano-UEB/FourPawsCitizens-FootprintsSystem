@@ -3,8 +3,6 @@ package co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.repositories;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Visit;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,14 +45,30 @@ public class VisitRepositoryImpl implements VisitRepository {
     /**
      * Finds the list of visits in a range of dates for a pet in a descending way
      *
-     * @param date1   first date range
-     * @param date2   second date range
+     * @param date1 first date range
+     * @param date2 second date range
      * @return a list of visits
      */
     @Override
+    public List<Visit> findBetweenDatesByPetId(Date date1, Date date2, Integer petId) {
+        return entityManager.
+                createQuery("SELECT v FROM Visit v WHERE v.pet.pet_id =: petId AND v.createdAt BETWEEN : date1 AND : date2").
+                setParameter("date1", date1).
+                setParameter("date2", date2).
+                setParameter("petId", petId).
+                getResultList();
+    }
+
+    /**
+     * Finds the list of visits in a range of dates for a pet name in a descending way
+     *
+     * @param date1 first date range
+     * @param date2 second date range
+     * @return a list of visits
+     */
     public List<Visit> findBetweenDatesByName(Date date1, Date date2) {
         return entityManager.
-                createQuery("SELECT v FROM Visit v WHERE  v.createdAt BETWEEN : date1   AND : date2 ORDER BY v.createdAt DESC").
+                createQuery("SELECT v FROM Visit v WHERE v.createdAt BETWEEN : date1 AND : date2 order by v.createdAt DESC").
                 setParameter("date1", date1).
                 setParameter("date2", date2).
                 getResultList();

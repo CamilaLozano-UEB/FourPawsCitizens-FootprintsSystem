@@ -12,7 +12,7 @@ public class VisitNamePOJO {
 
     /**
      * @param visit_id    the visit id
-     *@param namepet the name of the pet
+     * @param namepet     the name of the pet
      * @param created_at  the creation date of the visit
      * @param type        the type of visit
      * @param description the description of the visit
@@ -20,9 +20,9 @@ public class VisitNamePOJO {
      * @param vetUsername the veterinary id
      * @param pet_id      the pet id
      */
-    public VisitNamePOJO(Integer visit_id, String namepet,  String created_at, String type, String description, Long microchip, String vetUsername, Integer pet_id) {
+    public VisitNamePOJO(Integer visit_id, String namepet, String created_at, String type, String description, Long microchip, String vetUsername, Integer pet_id) {
         this.visit_id = visit_id;
-        this.namepet=namepet;
+        this.namepet = namepet;
         this.created_at = created_at;
         this.type = type;
         this.description = description;
@@ -36,7 +36,6 @@ public class VisitNamePOJO {
     }
 
     /**
-     *
      * @return the name of the pet
      */
     public String getNamepet() {
@@ -44,7 +43,6 @@ public class VisitNamePOJO {
     }
 
     /**
-     *
      * @param namepet the name of the pet
      */
     public void setNamepet(String namepet) {

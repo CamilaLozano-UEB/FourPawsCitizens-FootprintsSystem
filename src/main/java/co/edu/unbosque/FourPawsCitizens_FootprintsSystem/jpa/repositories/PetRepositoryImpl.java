@@ -4,8 +4,6 @@ import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.jpa.entities.Pet;
 import co.edu.unbosque.FourPawsCitizens_FootprintsSystem.resources.pojos.pets.PetPOJO;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +63,24 @@ public class PetRepositoryImpl implements PetRepository {
         pet.get().setSex(petPOJO.getSex());
         pet.get().setPicture(petPOJO.getPicture());
 
+        entityManager.getTransaction().commit();
+
+        return "Se ha modificado exitosamente!";
+    }
+    /**
+     * Modify the attributes of an specific pet
+     *
+     * @param petPOJO the pet with the new data
+     * @return a result message
+     */
+    @Override
+    public String modifyForVisit(PetPOJO petPOJO) {
+        entityManager.getTransaction().begin();
+
+        Optional<Pet> pet = this.findById(petPOJO.getPet_id());
+        if (!pet.isPresent()) return "No existe la mascota con el id ingresado!";
+
+        pet.get().setMicrochip(petPOJO.getMicrochip());
         entityManager.getTransaction().commit();
 
         return "Se ha modificado exitosamente!";
