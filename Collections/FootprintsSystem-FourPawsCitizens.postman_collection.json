@@ -1,0 +1,772 @@
+{
+	"info": {
+		"_postman_id": "ff6d9f5d-a828-4b0e-8d82-6fd534b1bf89",
+		"name": "FourPawsCitizens-FootprintsSystem",
+		"description": "Proyect of FourPawsCitizens by the grup FootprintsSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Vet",
+			"item": [
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"AnimalHouse\",\r\n    \"password\": \"12\",\r\n    \"email\": \"adssda\",\r\n    \"name\": \"el pepe\",\r\n    \"address\":\"avenida tu corazon\",\r\n    \"neighborhood\": \"fontibon\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"vet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet/piko/visits",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"created_at\":\"20/04/2021\",\r\n    \"type\":\"Vacunación\",\r\n    \"description\": \"Le dolio mucho\",\r\n    \"pet_id\":25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet/piko/visits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"vet",
+								"piko",
+								"visits"
+							]
+						},
+						"description": "Create a visit "
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "AnimalHouse",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "12",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"vet"
+							]
+						},
+						"description": "Authorization of user vet"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet/piko/visits/All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet/piko/visits/All",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"vet",
+								"piko",
+								"visits",
+								"All"
+							]
+						},
+						"description": "Get all vitis of the vet"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "AnimalHouse",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"vet"
+							]
+						},
+						"description": "Autentification of vet"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet/AnimalHouse",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"username\": \"AnimalHouse\",\r\n      \"address\":\"Calle 53 #45\",\r\n    \"neighborhood\": \"Teusaquillo\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/vet/AnimalHouse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"vet",
+								"AnimalHouse"
+							]
+						},
+						"description": "Put the vet "
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Owner",
+			"item": [
+				{
+					"name": "Owner",
+					"item": [
+						{
+							"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"NIPEMO3022P\",\r\n    \"password\":\"12345\",\r\n    \"email\" :\"nicop@gmail.com\",\r\n    \"person_id\" : 1193400800,\r\n    \"name\" : \"Nicolas\",\r\n    \"address\" : \"cra 7f #153-45\",\r\n    \"neighborhood\" : \"Usaquen\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+										"api",
+										"owners"
+									]
+								},
+								"description": "Create owner"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "1",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "pip",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+										"api",
+										"owners"
+									]
+								},
+								"description": "Authorization of user owner"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owner/Cam",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"address\":\"Cr 11\",\r\n    \"neighborhood\":\"Usaquencito\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owner/Cam",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+										"api",
+										"owner",
+										"Cam"
+									]
+								},
+								"description": "Method put to the owner\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"Cam\",\r\n    \"person_id\":\"1000\",\r\n    \"name\":\"Camila\",\r\n    \"address\":\"Calle 115\",\r\n    \"neighborhood\":\"Usaquen\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+										"api",
+										"owners"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "Cam",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Method post for creation an owner\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owner/NIPEMO3022P",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owner/NIPEMO3022P",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+										"api",
+										"owner",
+										"NIPEMO3022P"
+									]
+								},
+								"description": "Create a pet"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pet",
+					"item": [
+						{
+							"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners/pip/pets/25/visitsCases?initialDate=04/03/2021&finalDate=24/06/2021&petName=Samu",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners/pip/pets/25/visitsCases?initialDate=04/03/2021&finalDate=24/06/2021",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+										"api",
+										"owners",
+										"pip",
+										"pets",
+										"25",
+										"visitsCases"
+									],
+									"query": [
+										{
+											"key": "initialDate",
+											"value": "04/03/2021"
+										},
+										{
+											"key": "finalDate",
+											"value": "24/06/2021"
+										},
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Visit and case filter by dates and name"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners/NIPEMO3022P/pets",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"Banana\",\r\n    \"species\" : \"Canino\",\r\n    \"race\" : \"Husky\",\r\n    \"size\" : \"Gigante\",\r\n    \"sex\" : \"Hembra\",\r\n    \"microchip\": 12\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners/NIPEMO3022P/pets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+										"api",
+										"owners",
+										"NIPEMO3022P",
+										"pets"
+									]
+								},
+								"description": "Create a pet"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners/Cam/pets",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"microchip\":\"2\",\r\n    \"name\":\"Fulanito\",\r\n    \"species\":\"Gatito\",\r\n    \"race\":\"Maine coon\",\r\n    \"size\":\"Grande\",\r\n    \"sex\":\"Macho\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners/Cam/pets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+										"api",
+										"owners",
+										"Cam",
+										"pets"
+									]
+								},
+								"description": "Method post for creation of a pet\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners/pip/pets/25/visitsCasesAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/owners/pip/pets/25/visitsCasesAll",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+										"api",
+										"owners",
+										"pip",
+										"pets",
+										"25",
+										"visitsCasesAll"
+									],
+									"query": [
+										{
+											"key": "initialDate",
+											"value": "04/03/2021",
+											"disabled": true
+										},
+										{
+											"key": "finalDate",
+											"value": "24/06/2021",
+											"disabled": true
+										}
+									]
+								},
+								"description": "All visits of the pet with id 25"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Official",
+			"item": [
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/admin",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"official",
+								"admin"
+							]
+						},
+						"description": "authorization of user official "
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/admin/totalCases",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/admin/totalCases",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"official",
+								"admin",
+								"totalCases"
+							]
+						},
+						"description": "total cases"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/admin/totalVisits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/admin/totalVisits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"official",
+								"admin",
+								"totalVisits"
+							]
+						},
+						"description": "Total visits"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/NIPEMO3022P/totalPets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/admin/totalPets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"official",
+								"admin",
+								"totalPets"
+							]
+						},
+						"description": "Total pets"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/NIPEMO3022P/totalOwners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/admin/totalOwners",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"official",
+								"admin",
+								"totalOwners"
+							]
+						},
+						"description": "Total owners"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/admin/pets?speciesF=Canino,Felino&idF=36",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/official/admin/pets?speciesF=Canino,Felino&idF=36",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"official",
+								"admin",
+								"pets"
+							],
+							"query": [
+								{
+									"key": "speciesF",
+									"value": "Canino,Felino"
+								},
+								{
+									"key": "idF",
+									"value": "36"
+								}
+							]
+						},
+						"description": "Filter pets"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserApp",
+			"item": [
+				{
+					"name": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/userApp",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT/api/userApp",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"FourPawsCitizens-FootprintsSystem-1.0-SNAPSHOT",
+								"api",
+								"userApp"
+							]
+						},
+						"description": "authorization of userapp and get the role"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
