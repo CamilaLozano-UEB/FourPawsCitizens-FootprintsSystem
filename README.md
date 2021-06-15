@@ -11,7 +11,8 @@
 	<dd>JBoss As -Wildfly 23.0.1.Final</dd>
 	<dd> PostgreSQL 10</dd>
 	<dd>PostgreSQL JDBC Driver 42.2.10</dd>
-  <dd> Github Pages </dd>
+	<dd>Postman 8.5.1</dd>
+	<dd> Github Pages </dd>
 	<dd>JDK 1.8</dd>
 	<br>
 	<dt><h2><em> 3. Link del proyecto </em></h2></dt>
@@ -23,13 +24,30 @@
 	<dd><b>3.2.</b> Link de Youtube</dd>
 	<dd> </dd>
 	<br>
-	<dt><h2><em> 4. Lenguaje de Codificación </em></h2></dt>
+	<dt><h2><em> 4. Descripción del trabajo, retos, problemas, y oportunidades</em></h2></dt>
+	<dd><b>4.1. </b>Descripción del trabajo:</dd>
+	<dd><b>4.1.1.</b> Realizar una aplicación compuesta de un frontend tipo aplicación web, un backend manejado en Api Rest y una base de datos en PostgreSQL. En la parte del frontend se debe manejar una interfaz común y tres interfaces particulares para un funcionario del gobierno, una veterinaria y un propietario de mascota. Por parte de las bases de datos y la Api Rest se debe manejar services, resources, entities, pojos, autenticación y seguridad. </dd>
+	<dd><b>4.2. </b>Retos: </dd>
+	<dd><b>4.2.1. </b>Conexión entre dos repositorios y el envio de información de uno a otro </dd>
+	<dd><b>4.2.1. </b>Manejar la información desde api Rest y almacenarla en una base de Datos </dd>
+	<dd><b>4.2.1. </b>El diseño de una interfaz gráfica agradable e intuitiva para el usuario</dd>
+	<dd><b>4.2.1. </b>La descarga y asociación de una imagen con una mascota para luego implementarla en las tablas </dd>
+	<dd><b>4.3. </b>Problemas: </dd>
+	<dd><b>4.3.1. </b>"redirect has been blocked by cors policy": Era un error del servidor a la hora de redireccionar. En filters tuvimos que desarrollar un método que contuviera: "Access-Control-Allow-Origin"</dd>
+	<dd><b>4.3.1. </b>El manejo de la páginación a la hora de insertar los datos e implementar los filtros por ende las tablas no se cargaban bien. </dd>
+	<dd><b>4.3.1. </b> Uso de palabras reservadas en la base de datos en postgreSQL e IntelliJ </dd>
+	<dd><b>4.4. </b>Oportunidades:  </dd>
+	<dd><b>4.4.1. </b>Realizar un autoaprendizaje en varios de los temas que se trabajaron en el proyecto, de forma autónoma y autodidacta.</dd>
+	<dd><b>4.4.2. </b>Tener el criterio de autoexigencia a la hora de realizar los diferentes apartados, teniendo presente siempre la elaboración de métodos y clases con calidad de código. </dd>
+	<dd><b>4.4.3. </b>Mejorar nuestra planificación para tener un cronograma realista que nos permitió organizar nuestras actividades y dividirnos el trabajo eficientemente sin sobrecargarnos </dd>
+	<dd><b>4.4.4. </b>Conocer y aprender sobre el uso de distintas plataformas y recursos tecnologicos que fueron de apoyo a la hora de construir el proyecto </dd>
 	<br>
-	<dd> UTF-8 </dd>
+	<dd> </dd>
 	<br>
-	<dt><h2><em> 5. Entorno de Desarrollo </em></h2></dt>
+	<dt><h2><em> 5. Entorno de Desarrollo y Lenguaje de Codificación</em></h2></dt>
 	<br>
 	<dd> IDE IntelliJ IDEA Ultimate 2021.1</dd>
+	<dd> UTF-8 </dd> 
 	<br>
 	<dt><h2><em> 7. Intrucciones de Uso </em></h2></dt>
 	<dd><b>7.1.</b>Primero corra el servidor de aplicaciones Wildfly de su preferencia. Por otro lado, abra la página web en github pages que sera donde se va a desarrollar el programa.</dd>
