@@ -1,4 +1,5 @@
 # FourPawsCitizens-FootprintsSystem
+
 <html>
 <dl>
 	<dt><h2><em> 1. Integrantes </em></h2></dt>
@@ -21,8 +22,12 @@
 	<dd>https://github.com/CamilaLozano-UEB/FourPawsCitizens-FootprintsSystem</dd>
   <dd>https://github.com/CamilaLozano-UEB/FootPrintsSystem-Frontend</dd>
 	<br>
+<dd><b>3.2.</b> Link de Github Pages</dd>
+<dd>https://camilalozano-ueb.github.io/FootPrintsSystem-Frontend/</dd>
+<dd>Nota: Debido a errores de compatibilidad entre la ruta del proyecto (http) y la proporcionada por Github (https) se grabó el video en local.</dd>
+<br>
 	<dd><b>3.2.</b> Link de Youtube</dd>
-	<dd> </dd>
+	<dd> https://youtu.be/niEQ0mpSxRo</dd>
 	<br>
 	<dt><h2><em> 4. Descripción del trabajo, retos, problemas, y oportunidades</em></h2></dt>
 	<dd><b>4.1. </b>Descripción del trabajo:</dd>
@@ -50,6 +55,9 @@
 	<dd> UTF-8 </dd> 
 	<br>
 	<dt><h2><em> 7. Intrucciones de Uso </em></h2></dt>
+<dd><b>Nota: Lea atentamente las instrucciones</b></dd>
+<dd><b>Usuario del funcionario: admin</b></dd>
+<dd><b>Contraseña del funcionario: 12345</b></dd>
 	<dd><b>7.1.</b>Primero corra el servidor de aplicaciones Wildfly de su preferencia. Por otro lado, abra la página web en github pages que sera donde se va a desarrollar el programa.</dd>
 	<dd><b>7.2.</b> Cuando abra la página web, tendra una ventana inicial donde podra iniciar sesión, en caso de no tener sesión podra registrarse en el botón que se indica.</dd>
 	<dd><b>7.3.</b>Para registrarse podra seleccionar dos roles, propietario o veterinario. Cuando seleccione el rol, ingrese los datos solicitados y oprima el boton de "Registrarse", este lo redireccionara a la ventana de iniciar sesión.</dd>
@@ -65,7 +73,7 @@
 	<dd><b>7.13.</b>Para crear una visita ingrese a la pestaña crear visita, llene el formulario y envielo para que quede registrado</dd>
 	<dd><b>7.14.</b>Para ver sus visitas asociadas vaya a la pestaña de tabla de visitas donde podra filtrar por nombre y por fecha las visitas de cada mascota atendida</dd>
 	<dd><b>7.15.</b>Para cambiar sus datos de usuario vaya a la pestaña de Cambiar datos de veterinaria, ahi podra actualizarlos.</dd>
-	<dd><b>7.16.</b>Como funcionario, no puede crear una sesión, tendra una predeterminada. En esta sesión podra visualizar el total de propietarios, total de mascotas y una tabla de mascotas donde podra filtrarlas</dd>
+	<dd><b>7.16.</b>Como funcionario, no puede crear una sesión, tendra una predeterminada; en esta sesión podra visualizar el total de propietarios, total de mascotas y una tabla de mascotas donde podra filtrarlas</dd>
 	<dd><b>7.17.</b> Para visualizar la tabla de mascotas ingrese a la pestaña de tabla de mascotas, ahi podra visualizarlas todas, discriminadas por: especie, raza, tamaño, sexo, microchip, esterilización, total de casos discriminados por tipo y el total de visitas discriminadas por veterinaria y por tipo</dd>
 	<dd><b>7.18.</b> Para visualizar la tabla de propietarios ingrese a la pestaña de tabla de propietarios, ahi podra visualizarlos discriminados por: localidad y total de mascotas registradas </dd>
 	<dd><b>7.19.</b>Por ultimo tambien podra acceder a una tabla de mascotas donde podra filtrar los datos de: identificación, microchip, nombre, especie, raza, tamaño y sexo. Solo seleccione e ingrese en los campos de filtro las especificaciones que desea, dele click en el botón de filtrar y tendra las mascotas acorde a las caracteristicas</dd>
